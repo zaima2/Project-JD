@@ -1,7 +1,7 @@
 export enum StyleType {
     camera = "camera",
     local = "local",
-    cartFiled = "carFiled",
+    cartFiled = "cartFiled",
     chat = "chat",
     search = "search",
     arrowUp = "arrowUp",

@@ -1,9 +1,11 @@
 <template>
     <div class="navigator-container">
         <div class="navigator-bar">
-            <div class="left">
-                <div class="icon"></div>
-                <div class="locate hover-base">广东</div>
+            <div class="left  hover-base">
+                <div class="icon">
+                    <Icon :type="StyleType.local" />
+                </div>
+                <div class="locate">广东</div>
             </div>
             <div class="right">
                 <div class="navigator-item">
@@ -15,11 +17,11 @@
                 </div>
 
                 <div class="navigator-item hover-base">
-                    <router-link :to="{ path: '/' }">
+                    <router-link class="sideLine" :to="{ path: '/' }">
                         <span class="base">
                             免费注册
                         </span>
-                        
+
                     </router-link>
                 </div>
 
@@ -82,8 +84,8 @@
 
 
 <script lang="ts" setup>
-
-
+import Icon from "./Icon.vue";
+import { StyleType } from "../types/enum"
 </script>
 
 
@@ -108,9 +110,15 @@
             // background-color: #fc4;
             display: flex;
             align-items: center;
+            cursor: pointer;
 
             .icon {
                 margin-right: 10px;
+                color: inherit
+            }
+
+            .locate {
+                color: inherit
             }
         }
 
@@ -120,22 +128,26 @@
             // background-color: #ff0;
             display: flex;
             align-items: center;
-             .navigator-item{
-                flex:1;
+
+            .navigator-item {
+                flex: 1;
                 flex-shrink: 0;
+                box-sizing: border-box;
+                text-align: center;
+
+                // &::after {
+                //     content: "";
+                //     display: inline-block;
+                //     width: 1px;
+                //     height: 16px;
+                //     background-color: #999;
+                // }
+
+                .sideLine {
+                    padding: 0 3px;
+                }
             }
         }
     }
-}
-
-</style>
-
-<style lnag="less">
-.hover-base:hover {
-    color: red;
-}
-
-.base {
-    color:red;
 }
 </style>

@@ -11,4 +11,8 @@ import Navigator from "./components/Navigator.vue";
 import Home from "./views/Home/index.vue";
 </script>
 
-<style scope lang="less"></style>
+<style scope lang="less">
+.home-container {
+  background-color: @bgColor;
+}
+</style>
