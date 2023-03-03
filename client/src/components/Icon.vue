@@ -1,5 +1,8 @@
 <template>
-  <span :style="{fontSize:props.size ? props.size : 10 + 'px'}" :class="`iconfont icon-${fonts[props.type]}`"></span>
+  <span
+    :style="{ fontSize: props.size ? props.size : 10 + 'px' }"
+    :class="`iconfont icon-${fonts[props.type]}`"
+  ></span>
 </template>
 
 <script setup lang="ts">
@@ -7,14 +10,12 @@ import { StyleType } from "../types/enum";
 
 interface PropsType {
   type: StyleType;
-  size?:number
+  size?: number;
 }
 
 const props = defineProps<PropsType>();
 
-
 console.log(props.type);
-
 
 const fonts = {
   camera: "zhaoxiangji",
@@ -38,8 +39,8 @@ const fonts = {
 @import "//at.alicdn.com/t/c/font_3925574_1xd9etwm0fs.css";
 
 .iconfont {
-  color:inherit;
+  color: inherit;
   font-weight: inherit;
+  // font-size: inherit;
 }
-
 </style>
