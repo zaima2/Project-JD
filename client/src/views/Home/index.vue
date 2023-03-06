@@ -58,6 +58,7 @@ const state = reactive({
         background-color: @bgColor;
         display:flex;
         justify-content: center;
+        box-sizing: border-box;
         .home-inner {
             width:90%;
             height:100%;
