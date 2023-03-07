@@ -23,6 +23,8 @@ import News from './News.vue';
     height:100%;
     background-color: #fff;
     padding:10px 5px;
+    display: flex;
+    flex-direction: column;
     .user {
         width:100%;
         height:80px;
@@ -30,6 +32,17 @@ import News from './News.vue';
         display:flex;
         align-items: center;
         justify-content: center;
+    }
+    .news {
+        width:100%;
+        height:110px;
+        // background:red;
+        margin-top:10px;
+    }
+    .funcMenu {
+        flex:1;
+        margin-top:10px;
+        // background-color: #fd079f;
     }
 }
 
