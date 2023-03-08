@@ -4,6 +4,7 @@ import "./carousel";
 import "./news";
 import "./miaosha";
 import "./playground";
+import "./recommondation"
 
 
 Mock.setup({
