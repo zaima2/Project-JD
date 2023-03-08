@@ -35,7 +35,7 @@ const fonts = {
 } as any;
 </script>
 
-<style scoped lang="less">
+<style scopedd lang="less">
 @import "//at.alicdn.com/t/c/font_3925574_1xd9etwm0fs.css";
 
 .iconfont {

@@ -20,7 +20,7 @@ import Icon from "../../../components/Icon.vue";
 import { StyleType } from "../../../types/enum";
 </script>
 
-<style scope lang="less">
+<style scoped lang="less">
 .search-container {
   display: flex;
   height: 40px;

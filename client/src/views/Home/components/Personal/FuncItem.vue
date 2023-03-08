@@ -35,7 +35,7 @@ function mouseLeaveHandle() {
 }
 </script>
 
-<style scoped lang="less">
+<style scopedd lang="less">
 .func-item-container {
   width: 100%;
   height: 100%;

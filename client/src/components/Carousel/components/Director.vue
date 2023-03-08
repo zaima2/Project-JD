@@ -7,7 +7,7 @@
 
 <script setup lang="ts"></script>
 
-<style scoped lang="less">
+<style scopedd lang="less">
 .director-container {
   position: absolute;
   top: 50%;

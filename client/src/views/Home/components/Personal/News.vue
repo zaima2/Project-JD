@@ -38,7 +38,7 @@ const state = reactive({
 </script>
 
 
-<style scope lang="less">
+<style scoped lang="less">
 .news-container {
     width: 100%;
     height: 100%;

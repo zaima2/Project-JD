@@ -10,7 +10,7 @@
 </script>
 
 
-<style scope lang="less">
+<style scoped lang="less">
 .menu-container {
     width:100%;
     height:400px;

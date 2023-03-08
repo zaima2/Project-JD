@@ -17,7 +17,7 @@ interface PropsType {
 const props = defineProps<PropsType>();
 </script>
 
-<style scoped lang="less">
+<style scopedd lang="less">
 .indicator-container {
   position: absolute;
   top: 90%;
