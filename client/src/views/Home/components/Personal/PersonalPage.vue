@@ -18,7 +18,7 @@ import News from "./News.vue";
 import FuncMenu from "./FuncMenu.vue";
 </script>
 
-<style scope lang="less">
+<style scoped lang="less">
 .personal-page-container {
   width: 100%;
   height: 100%;

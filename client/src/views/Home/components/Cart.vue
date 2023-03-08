@@ -15,7 +15,7 @@ import Icon from "../../../components/Icon.vue";
 import { StyleType } from "../../../types/enum";
 </script>
 
-<style scope lang="less">
+<style scoped lang="less">
 .cart-inner-container {
   display: flex;
   .icon {

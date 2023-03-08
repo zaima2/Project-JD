@@ -1,7 +1,11 @@
 import Mock from "mockjs";
-import "./getHighFrequentGoods"
+import "./getHighFrequentGoods";
 import "./carousel";
-import "./news"
+import "./news";
+import "./miaosha";
+import "./playground";
+
+
 Mock.setup({
     timeout: 2000
 })

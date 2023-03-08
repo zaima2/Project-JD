@@ -59,7 +59,7 @@ function toggleHandle(indicator: number) {
 }
 </script>
 
-<style scoped lang="less">
+<style scopedd lang="less">
 .Carousel-container {
   width: 100%;
   height: 100%;

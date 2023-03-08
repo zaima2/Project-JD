@@ -92,7 +92,7 @@ const state = reactive({
 })();
 </script>
 
-<style scope lang="less">
+<style scoped lang="less">
 .banner-container {
   width: 100%;
   height: 150px;

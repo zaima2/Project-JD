@@ -89,7 +89,7 @@ import { StyleType } from "../types/enum"
 </script>
 
 
-<style scope lang="less">
+<style scoped lang="less">
 .navigator-container {
     width: 100%;
     height: 30px;

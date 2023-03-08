@@ -133,7 +133,7 @@ function startMove(curPos: number, destination: number, speed: number) {
 }
 </script>
 
-<style scoped lang="less">
+<style scopedd lang="less">
 .move-container {
   position: absolute;
 }
