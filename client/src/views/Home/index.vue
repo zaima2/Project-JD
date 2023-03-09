@@ -21,26 +21,17 @@
         </div>
         <div class="miaosha-container">
           <div class="miaosha-predicator">
-            <MiaoSha
-              :start-time="state.miaosha.startTime"
-              :end-time="state.miaosha.endTime"
-            />
+            <MiaoSha :start-time="state.miaosha.startTime" :end-time="state.miaosha.endTime" />
           </div>
           <div class="miaosha-slider" ref="miaoContainer">
-            <Slider
-              :data="state.miaosha.goods ? state.miaosha.goods : []"
-              :container-width="state.containerWidth"
-            />
+            <Slider :data="state.miaosha.goods ? state.miaosha.goods : []" :container-width="state.containerWidth" />
           </div>
         </div>
         <div class="playgrounds">
           <PlayGround :data="state.playground" />
         </div>
         <div class="recommondation">
-          <Recommondation
-            :data="state.recommondation.data"
-            :total="state.recommondation.total"
-          />
+          <Recommondation :data="state.recommondation.data" :total="state.recommondation.total" />
         </div>
       </div>
     </div>
@@ -73,6 +64,7 @@ const state = reactive({
   containerWidth: 0,
   playground: {} as PlayGroundType,
   recommondation: {} as RecommondationType,
+  loadMore: false
 });
 
 const miaoContainer = ref() as Ref<HTMLElement>;
@@ -86,7 +78,45 @@ const miaoContainer = ref() as Ref<HTMLElement>;
   state.containerWidth = miaoContainer.value.offsetWidth;
   state.playground = await getPlayGround();
   state.recommondation = await getRecommondation();
+
+  console.log(state.recommondation);
+
 })();
+
+
+// document.documentElement.scrollHeight
+
+window.onscroll = async function (scrollEle) {
+
+  // console.log(document.documentElement.scrollTop, document.documentElement.scrollHeight - 400);
+
+  console.log(document.documentElement.scrollHeight - (document.documentElement.scrollTop + document.documentElement.clientHeight) === 0);
+
+  if (state.loadMore) {
+    return;
+  }
+
+  if (document.documentElement.scrollHeight - (document.documentElement.scrollTop + document.documentElement.clientHeight) < 10) {
+    console.log("sf");
+
+    state.loadMore = true;
+
+    console.log(state.recommondation.total, state.recommondation.data.length);
+
+
+    if (state.recommondation.total === state.recommondation.data.length) {
+      return;
+    }
+
+    const resp = await getRecommondation();
+    state.recommondation.data = [...state.recommondation.data, ...resp.data] as any;
+    state.loadMore = false;
+  }
+
+}
+
+
+
 </script>
 
 <style scoped lang="less">

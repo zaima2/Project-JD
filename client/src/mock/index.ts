@@ -7,6 +7,6 @@ import "./playground";
 import "./recommondation"
 
 
-Mock.setup({
-    timeout: 2000
-})
+// Mock.setup({
+//     timeout: 2000
+// })

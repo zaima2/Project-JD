@@ -14,8 +14,9 @@ const childBrand = Mock.mock({
         isHot:false,
         id:"@guid",
         thumb:"@image",
-        title:"@cword(10,20)",
-        price:"@float(0,10000,0,1000)"
+        title:"@cword(10,40)",
+        price:"@float(0,10000,0,1000)",
+        "isSelf|1":[true,false]
     }]
 })
 
@@ -27,7 +28,7 @@ Mock.mock("/api/getRecommondation","get",{
     code:0,
     msg:"获取成功",
     data:{
-        total:50,
+        total:30,
         data
     }
 })

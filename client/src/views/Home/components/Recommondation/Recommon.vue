@@ -1,10 +1,7 @@
 <template>
   <div class="recommon-container">
     <div class="recommon-item" v-for="item in props.data">
-      <HotBrand
-        v-if="item.isHot"
-        :data="item as unknown as RecommondationHot"
-      />
+      <HotBrand v-if="item.isHot" :data="item as unknown as RecommondationHot" />
       <RecommonChild v-else :data="item as unknown as RecommondationChild" />
     </div>
   </div>
@@ -32,9 +29,12 @@ const props = defineProps<PropsType>();
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+
   .recommon-item {
     flex: 0 0 25%;
-    height: 300px;
+    height: 360px;
+    box-sizing: border-box;
+    padding: 20px;
   }
 }
 </style>
