@@ -1,5 +1,6 @@
 export interface RecommondationChild {
     isHot:false,
+    isSelf:false,
     id:string,
     thumb:string,
     title:string,
