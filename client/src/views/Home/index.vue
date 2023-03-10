@@ -1,5 +1,6 @@
 <template>
   <div class="home-container">
+    <Navigator />
     <Banner />
     <div class="home-body">
       <div class="home-inner">
@@ -40,6 +41,7 @@
 
 <script lang="ts" setup>
 import Banner from "./components/Banner.vue";
+import Navigator from "../../components/Navigator.vue";
 import Menu from "./components/Menu.vue";
 import Personal from "./components/Personal/PersonalPage.vue";
 import Carousel from "../../components/Carousel/Carousel.vue";

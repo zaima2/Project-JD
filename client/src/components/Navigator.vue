@@ -9,7 +9,9 @@
             </div>
             <div class="right">
                 <div class="navigator-item">
-                    <router-link :to="{ path: '/' }">
+                    <router-link :to="{
+                        name: 'Login'
+                    }">
                         <span class="hover-base">
                             你好，请登录
                         </span>

@@ -1,14 +1,12 @@
 <template>
   <div class="home-container">
-    <Navigator />
-    <Home />
-    <router-view />
+
+    <RouterView />
   </div>
 </template>
 
 <script lang="ts" setup>
-import Navigator from "./components/Navigator.vue";
-import Home from "./views/Home/index.vue";
+
 </script>
 
 <style scoped lang="less">
