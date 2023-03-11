@@ -20,6 +20,21 @@ ul,li {
     color:@baseColor;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
+.underWhite {
+    &::after {
+        content: "";
+        display: block;
+        border: 1px solid #fff;
+        position: absolute;
+        z-index: 4;
+        width: 100%;
+      }
+}
+
 .center {
     display:flex;
     align-items: center;

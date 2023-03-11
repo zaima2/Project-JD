@@ -1,6 +1,6 @@
 <template>
   <span
-    :style="{ fontSize: props.size ? props.size : 10 + 'px' }"
+    :style="{ fontSize: props.size ? props.size + 'px' : 10 + 'px' }"
     :class="`iconfont icon-${fonts[props.type]}`"
   ></span>
 </template>
