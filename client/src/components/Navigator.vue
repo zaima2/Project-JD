@@ -112,6 +112,7 @@ import MyJDModel from "./MyJDModel.vue";
 import EnterpriseCollection from "./EnterpriseCollection.vue";
 import BussinsService from "./BussinsService.vue";
 import WebSiteRouter from "./WebSiteRouter.vue";
+
 const store = useStore();
 </script>
 

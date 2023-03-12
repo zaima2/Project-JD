@@ -1,7 +1,7 @@
 <template>
   <div class="user-model-container">
     <div class="user-info">
-      <div class="avatar">
+      <div class="avatar" @click="goPersonalInfo">
         <Avatar
           :src="
             store.state.user
@@ -53,7 +53,19 @@ import Avatar from "./Avatar.vue";
 import Icon from "./Icon.vue";
 import { useStore } from "vuex";
 import { StyleType } from "../types/enum";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 const store = useStore();
+
+function goPersonalInfo() {
+  router.push({
+    name: "Personal",
+    params: {
+      uid: store.state.user.id,
+    },
+  });
+}
 </script>
 
 <style scoped lang="less">
@@ -62,6 +74,7 @@ const store = useStore();
   height: 200px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
   .user-info {
     width: 100%;
     flex: 0 0 50%;

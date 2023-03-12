@@ -15,6 +15,7 @@ Mock.mock("/api/whoami","post",{
     code:0,
     msg:"获取用户信息成功",
     data:{
+        id:"@guid",
         username:"@cname",
         avatar:null,
         level:1,
