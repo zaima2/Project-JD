@@ -24,6 +24,7 @@ import Menu from "./Menu.vue";
 <style scoped lang="less">
 .personal-container {
   width: 100%;
+
   .banner {
     width: 100%;
     height: 100px;
@@ -33,16 +34,20 @@ import Menu from "./Menu.vue";
     display: flex;
     justify-content: center;
   }
+
   .body {
     width: 100%;
     display: flex;
     justify-content: center;
     margin-top: 20px;
+
     .body-inner {
       width: 1200px;
       display: flex;
+
       .menu {
         width: 160px;
+        height: fit-content;
         background: #fff;
       }
 

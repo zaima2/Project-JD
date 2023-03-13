@@ -4,15 +4,13 @@
       <div class="user-info">
         <div class="avatar">
           <div class="img">
-            <Avatar
-              :src="
-                store.state.user
+            <Avatar :src="
+              store.state.user
+                ? store.state.user.avatar
                   ? store.state.user.avatar
-                    ? store.state.user.avatar
-                    : '/src/assets/userDefaultAvatar.jpeg'
-                  : '/src/assets/userAvatar.png'
-              "
-            />
+                  : '/src/assets/userDefaultAvatar.jpeg'
+                : '/src/assets/userAvatar.png'
+            " />
           </div>
           <div class="level">铜牌</div>
         </div>
@@ -32,13 +30,52 @@
         <div class="btn">立即开通</div>
       </div>
     </div>
-    <div class="user-asset"></div>
+    <div class="user-asset">
+      <div class="user">
+        <div class="title">
+          <span>我的钱包</span>
+          <div class="pointer hover-base">
+            <Icon :type="StyleType.view" :size="20" />
+          </div>
+
+        </div>
+        <div class="assets">
+          <div class="inner">
+            <div class="youhuiquan">
+              <div class="count">
+                0
+              </div>
+              <span class="title">优惠券</span>
+              <div class="link">领券</div>
+            </div>
+            <div class="jingdou">
+              <div class="count">0</div><span class="title">金豆</span>
+              <div class="link">赚京豆</div>
+            </div>
+            <div class="balence">
+              <div class="count">0</div><span class="title">余额</span>
+              <div class="link"></div>
+            </div>
+            <div class="baitiao">
+              <div class="count">0</div><span class="title">暂未开通白条</span>
+              <div class="link">开通</div>
+            </div>
+            <div class="fit">
+              <div class="count">0</div><span class="title">小金库昨日收益</span>
+              <div class="link">转入小金库，马上赚钱</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useStore } from "vuex";
 import Avatar from "../../../../../components/Avatar.vue";
+import Icon from "../../../../../components/Icon.vue";
+import { StyleType } from "../../../../../types/enum";
 const store = useStore();
 </script>
 
@@ -53,7 +90,7 @@ const store = useStore();
   align-items: center;
 
   .user-brand {
-    width: 260px;
+    width: 240px;
     height: 100%;
     background-color: @baseColor;
     position: absolute;
@@ -70,6 +107,7 @@ const store = useStore();
       align-items: center;
       justify-content: center;
       flex-direction: column;
+
       .avatar {
         width: 100px;
         margin-top: 20px;
@@ -77,11 +115,13 @@ const store = useStore();
         display: flex;
         flex-direction: column;
         align-items: center;
+
         .img {
           width: 75px;
           height: 75px;
           cursor: pointer;
         }
+
         .level {
           padding: 1px 5px;
           background-color: #ccc;
@@ -106,8 +146,9 @@ const store = useStore();
         margin-top: -10px;
         flex: 1 0 auto;
         box-sizing: border-box;
-        padding: 0px 36px;
+        padding: 0px 30px;
         align-items: center;
+
         span {
           padding: 3px;
           color: #fff;
@@ -115,6 +156,7 @@ const store = useStore();
           border: 1px solid #fff;
           border-radius: 10px;
           cursor: pointer;
+
           &:hover {
             background-color: #fff;
             color: @baseColor;
@@ -122,6 +164,7 @@ const store = useStore();
         }
       }
     }
+
     .vip-ad {
       width: 100%;
       height: 50px;
@@ -129,21 +172,25 @@ const store = useStore();
       display: flex;
       justify-content: center;
       align-items: center;
+
       .tip {
         display: flex;
         align-items: center;
         flex-direction: column;
         margin-right: 40px;
         color: @dgold;
+
         .title {
           font-weight: bold;
           font-size: 14px;
         }
+
         .title,
         .title-attach {
           color: inherit;
         }
       }
+
       .btn {
         width: 70px;
         height: 25px;
@@ -153,17 +200,87 @@ const store = useStore();
         color: rgb(69, 63, 63);
         border-radius: 12px;
         cursor: pointer;
+
         &:hover {
           background-color: #fff;
         }
       }
     }
   }
+
   .user-asset {
     flex: 1 1 auto;
     box-sizing: border-box;
-    padding-left: 320px;
+    padding-left: 280px;
     height: 100%;
+
+    .user {
+      width: 100%;
+      height: 100%;
+      // background-color: aqua;
+      display: flex;
+      flex-direction: column;
+
+      >.title {
+        width: 100%;
+        height: 50px;
+        border-bottom: 1px solid #e4e4e4;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-sizing: border-box;
+        padding: 10px;
+      }
+
+      .assets {
+        display: flex;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 40px 10px;
+        flex: 1 1 auto;
+        align-items: center;
+
+        .inner {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          .youhuiquan,
+          .jingdou,
+          .balence,
+          .baitiao,
+          .fit {
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            // justify-content: space-between;
+
+            .count {
+              margin-bottom: 20px;
+              font-size: 20px;
+              color: #000;
+              font-weight: bold;
+            }
+
+            .title {
+              // padding: 20px 0px;
+              margin-bottom: 50px;
+            }
+
+            .link {
+              color: @linkColor;
+              cursor: pointer;
+
+              &:hover {
+                color: @baseColor;
+              }
+            }
+          }
+
+        }
+      }
+    }
   }
 }
 </style>
