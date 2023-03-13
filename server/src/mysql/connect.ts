@@ -1,7 +1,7 @@
 import {Sequelize} from "sequelize";
-import server from "../../configure/server";
+import databaseConfigure from "../../configure/database";
 
-const sequelize = new Sequelize(server.mysql.database,server.mysql.username,server.mysql.passw, {
+const sequelize = new Sequelize(databaseConfigure.database,databaseConfigure.username, process.argv.includes("comp") ? databaseConfigure.passwComp : databaseConfigure.passwHome, {
     host:"localhost",
     dialect:"mysql",
     logging:false,

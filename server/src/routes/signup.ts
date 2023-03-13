@@ -1,14 +1,14 @@
 import Express from "express";
 import {signUp} from "../service/register";
 import response from "../utils/response";
-import sha from "sha.js";
+import sha from "sha256";
 import server from "../../configure/server";
 const router =  Express.Router();
 
 
 router.post("/",async (req,res,next) => {
 
-    req.body.password = sha('sha256').update(req.body.password + server.complexKey).digest('hex');
+    req.body.password = sha(req.body.password + server.complexKey);
  
     try {
         const resp = await signUp(req.body) as any;
