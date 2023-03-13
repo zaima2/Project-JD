@@ -2,13 +2,13 @@
   <div class="search-container">
     <div class="input-box">
       <div class="inputInner">
-        <input type="text" />
+        <input type="text" v-model="state.keyword" />
         <div class="camera">
           <Icon :type="StyleType.camera" :size="16" />
         </div>
       </div>
 
-      <div class="search-button">
+      <div class="search-button" @click="goSearch">
         <Icon :type="StyleType.search" :size="20" />
       </div>
     </div>
@@ -18,6 +18,27 @@
 <script lang="ts" setup>
 import Icon from "../../../components/Icon.vue";
 import { StyleType } from "../../../types/enum";
+import { reactive } from "vue";
+import { useRouter } from "vue-router";
+const state = reactive({
+  keyword: ""
+})
+
+const router = useRouter();
+
+function goSearch() {
+  if (!state.keyword) {
+    return;
+  }
+
+  router.push({
+    name: "Search",
+    query: {
+      keyword: state.keyword
+    }
+  })
+
+}
 </script>
 
 <style scoped lang="less">
@@ -42,6 +63,7 @@ import { StyleType } from "../../../types/enum";
         position: absolute;
         right: 20px;
         cursor: pointer;
+
         &:hover {
           color: @baseColor;
         }
