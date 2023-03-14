@@ -1,12 +1,9 @@
 import jwt from "jsonwebtoken";
 import token from "../../configure/authKey/jwt";
 import sha256 from "sha256";
+import { User } from "../types/User";
 
-export interface User {
-    phone:string,
-    id:string,
-    avatar:null | string
-}
+
 
 /**
  * 

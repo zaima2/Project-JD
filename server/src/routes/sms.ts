@@ -9,6 +9,7 @@ import getClientIp from "../utils/getIp";
 import { fromTimeStampToStand } from "../utils/formatDate";
 import {randomNumberGenerator} from "../utils/random";
 
+
 const router = Express();
 const client = new ZhenzismsClient(sms.sendURL, sms.appId, sms.appSecureKey);
 
@@ -70,11 +71,19 @@ router.post("/", async (req:any, res) => {
   
   
 
-  const smsRes = await client.send({
-    templateId: sms.smsTmpId,
-    number: req.body.phone,
-    templateParams: [`${code}`, "5"],
-  });
+  // const smsRes = await client.send({
+  //   templateId: sms.smsTmpId,
+  //   number: req.body.phone,
+  //   templateParams: [`${code}`, "5"],
+  // });
+
+  const smsRes = {
+    code:0,
+    data:"success"
+  }
+
+  console.log(code);
+  
 
  
 
@@ -91,5 +100,26 @@ router.post("/", async (req:any, res) => {
   }
 
 });
+
+router.post("/verify",(req:any,res,next) => {
+  
+  if(!req.body.captcha || !req.body.phone) {
+    res.send(formatResponse(400,"参数错误",false));
+    return;
+  }
+
+  if(!req.session.captcha || (+req.session.captcha[req.body.phone] !== +req.body.captcha)) {
+    res.send(formatResponse(402,"验证失败",false));
+    return;
+  }
+
+
+  if(+req.session.captcha[req.body.phone] === +req.body.captcha) {
+    res.send(formatResponse(0,"验证成功",true));
+    return;
+  }
+
+  res.send(formatResponse(501,"未知错误",false))
+})
 
 export default router;

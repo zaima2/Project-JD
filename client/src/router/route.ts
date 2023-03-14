@@ -10,13 +10,16 @@ import Search from "../views/Search/index.vue";
 
 export default [
     {
-        name:"Home", path:"/",component:Home,children:[
-            {name:"HomeView",path:"/",component:HomeView},
-            {name:"Personal",path:"/home/:uid",component:Personal,children:[
-                {name:"OverView",path:"/home/:uid",component:OverView}
-            ]},
-            {name:"Search",path:"/search",component:Search}
-    ]},
-    {name:"Login",path:"/login",component:Login},
-    {name:"Register",path:"/register",component:Register},
-] as RouteRecordRaw[]
+        name: "Home", path: "/", component: Home, children: [
+            { name: "HomeView", path: "/", component: HomeView, meta:{auth: false} },
+            {
+                name: "Personal", path: "/home/:uid", component: Personal, meta:{auth: true}, children: [
+                    { name: "OverView", path: "/home/:uid", meta:{auth: true}, component: OverView }
+                ]
+            },
+            { name: "Search", path: "/search",meta:{auth: false}, component: Search }
+        ]
+    },
+    { name: "Login", path: "/login", component: Login, meta:{auth: false} },
+    { name: "Register", meta:{auth: false}, path: "/register", component: Register },
+]  as RouteRecordRaw[]

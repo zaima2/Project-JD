@@ -26,9 +26,7 @@
         <div class="login-box">
           <div class="tip">
             <Icon :type="StyleType.edit" />
-            <span class="tip-text"
-              >京东不会以任何理由要求您转账汇款，谨防诈骗。</span
-            >
+            <span class="tip-text">京东不会以任何理由要求您转账汇款，谨防诈骗。</span>
           </div>
           <div class="title">用户登录</div>
           <div class="input-box">
@@ -36,17 +34,17 @@
               <div class="icon">
                 <Icon :size="30" :type="StyleType.chat" />
               </div>
-              <input type="text" placeholder="用户名/手机号" />
+              <input type="text" v-model="state.form.username" placeholder="用户名/手机号" />
             </div>
             <div class="input password">
               <div class="icon">
                 <Icon :size="30" :type="StyleType.chat" />
               </div>
-              <input type="password" placeholder="请输入密码" />
+              <input v-model="state.form.password" type="password" placeholder="请输入密码" />
             </div>
             <div class="forgetPass">忘记密码</div>
           </div>
-          <div class="login-button">
+          <div class="login-button" @click="goLogin">
             <div class="button">登&nbsp;&nbsp;录</div>
           </div>
           <div class="footer">
@@ -77,7 +75,30 @@ import Icon from "../components/Icon.vue";
 import { useRouter } from "vue-router";
 import { StyleType } from "../types/enum";
 import Reference from "../components/Reference/index.vue";
+import { reactive, watchEffect } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
 const router = useRouter();
+
+const state = reactive({
+  form: {
+    username: "",
+    password: ""
+  }
+})
+
+watchEffect(() => {
+  if (store.state.user) {
+    router.push("/")
+  }
+})
+
+
+function goLogin() {
+  store.dispatch("Login", state.form);
+}
+
+
 
 function goRegister() {
   router.push({

@@ -5,10 +5,11 @@ import model from "../model/user";
 
 export async function register(user:User) {
    const resp = await model.findOne({
-        where:{
+    where:{
             username:user.username
         }
-    });
+   })
+
 
     if(JSON.parse(JSON.stringify(resp))) {
         return {
@@ -17,7 +18,6 @@ export async function register(user:User) {
         }
     }
     
-
   return await model.create({
     ...user
    })
