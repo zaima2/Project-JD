@@ -9,10 +9,10 @@
           </div>
           <div class="carousel">
             <div class="home-carousel">
-              <Carousel :data="state.mainCarouselData" />
+              <!-- <Carousel :data="state.mainCarouselData" /> -->
             </div>
             <div class="side-carousel">
-              <Carousel :data="state.attachcarouselData" />
+              <!-- <Carousel :data="state.attachcarouselData" /> -->
             </div>
           </div>
           <div class="personal">

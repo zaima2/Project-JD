@@ -34,7 +34,14 @@ const store = createStore({
         },
 
         async Whoami(store) {
-          const user =  await whoami();
+          const user =  await whoami() as any;
+
+          if(user.code && user.code !== 0) {
+            store.commit("whoami",user.data);
+            return;
+          }
+
+
           store.commit("whoami",user);
         },
         
