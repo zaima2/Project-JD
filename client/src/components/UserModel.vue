@@ -2,15 +2,13 @@
   <div class="user-model-container">
     <div class="user-info">
       <div class="avatar" @click="goPersonalInfo">
-        <Avatar
-          :src="
-            store.state.user
+        <Avatar :src="
+          store.state.user
+            ? store.state.user.avatar
               ? store.state.user.avatar
-                ? store.state.user.avatar
-                : '/src/assets/userDefaultAvatar.jpeg'
-              : '/src/assets/userAvatar.png'
-          "
-        />
+              : '/src/assets/userDefaultAvatar.jpeg'
+            : '/src/assets/userAvatar.png'
+        " />
       </div>
       <div class="privilege">
         <div class="user-operator">
@@ -18,7 +16,7 @@
             <Icon :type="StyleType.chat" />
             <span class="plus">PLUS</span>
           </div>
-          <div class="logout hover-base pointer">退出</div>
+          <div class="logout hover-base pointer" @click="logout">退出</div>
         </div>
         <div class="vip-ad hover-base pointer">
           开通PLUS, 平均省1210元/年&gt;
@@ -66,6 +64,10 @@ function goPersonalInfo() {
     },
   });
 }
+
+function logout() {
+  store.commit("logout");
+}
 </script>
 
 <style scoped lang="less">
@@ -75,6 +77,7 @@ function goPersonalInfo() {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+
   .user-info {
     width: 100%;
     flex: 0 0 50%;
@@ -83,22 +86,26 @@ function goPersonalInfo() {
     padding: 10px;
     display: flex;
     align-items: center;
+
     .avatar {
       width: 50px;
       height: 50px;
     }
+
     .privilege {
       flex-grow: 1;
       height: 100%;
       margin-left: 20px;
       display: flex;
       flex-direction: column;
+
       .user-operator {
         display: flex;
         justify-content: space-between;
         align-items: center;
         width: 100%;
         height: 30px;
+
         .vip-leavel {
           display: flex;
           justify-content: center;
@@ -107,17 +114,20 @@ function goPersonalInfo() {
           border-radius: 5px;
           height: fit-content;
           background-color: rgb(202, 187, 103);
+
           .plus {
             margin-left: 3px;
             color: #fff;
           }
         }
       }
+
       .vip-ad {
         text-align: left;
       }
     }
   }
+
   .user-privilege-ad {
     width: 100%;
     flex: 0 0 50%;
@@ -126,9 +136,11 @@ function goPersonalInfo() {
     display: flex;
     justify-content: space-around;
     align-items: center;
+
     .user-privilege-item {
       width: 60px;
       cursor: pointer;
+
       &.freeTask {
         .img {
           .avatar_title {
@@ -137,8 +149,10 @@ function goPersonalInfo() {
           }
         }
       }
+
       .img {
         color: inherit;
+
         .avatar_title {
           color: inherit;
         }

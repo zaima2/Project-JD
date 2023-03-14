@@ -1,38 +1,31 @@
 <template>
   <div class="registerForm-container">
     <div class="prograss">
-      <Prograss
-        :steps="state.steps"
-        :current="route.query.step ? +route.query.step : 0"
-      />
+      <Prograss :steps="state.steps" :current="route.query.step ? +route.query.step : 0" />
     </div>
 
     <div v-if="route.query.step && +route.query.step === 1" class="phone">
       <div class="phoneNumber">
         <div class="country">中国(+86)</div>
-        <input
-          type="text"
-          v-model="state.form.phone"
-          placeholder="请输入手机号"
-          @focus="phoneFocus"
-          @blur="phoneBlur"
-        />
+        <input type="text" v-model="state.form.phone" placeholder="请输入手机号" @focus="phoneFocus" @blur="phoneBlur" />
         <div class="icon center">
           <span v-if="state.tip">X</span>
           <span v-if="state.verify === 'true' && !state.tip">√</span>
         </div>
       </div>
       <p v-if="state.tip && !state.form.phone">
-        <Icon :type="StyleType.edit" /><span
-          >验证完成后，你可以使用该手机登录或找回密码</span
-        >
+        <Icon :type="StyleType.edit" /><span>验证完成后，你可以使用该手机登录或找回密码</span>
       </p>
-      <p v-if="state.verify === 'false' && state.form.phone">
-        <Icon :type="StyleType.local" /><span
-          >手机号格式有误，请检查后重试</span
-        >
+      <p v-if="(state.verify === 'false' && state.form.phone) || state.verify === 'false'">
+        <Icon :type="StyleType.local" /><span>手机号格式有误，请检查后重试</span>
       </p>
-      <div class="verify center">发送验证码</div>
+      <div class="code"><input type="text" placeholder="请填写验证码">
+        <div class="timer">
+          <span class="hover-base send pointer" v-if="store.state.timer === 0" @click="send">发送验证码</span>
+          <span v-else>{{ store.state.timer }}</span>
+        </div>
+      </div>
+      <div class="error">{{ state.error && state.error.msg }}</div>
       <div class="nextStep center" @click="nextStep">下一步</div>
       <div class="register-enterprise-indicator">
         <Icon :type="StyleType.chat" />
@@ -44,64 +37,41 @@
       <div class="username">
         <div class="username-box">
           <div class="username-title">用户名</div>
-          <input
-            type="text"
-            v-model="state.form.username"
-            placeholder="请输入用户名"
-            @focus="phoneFocus"
-            @blur="phoneBlur"
-          />
+          <input type="text" v-model="state.form.username" placeholder="请输入用户名" @focus="phoneFocus" @blur="phoneBlur" />
         </div>
 
         <div class="icon center">
           <span v-if="state.verify === 'true' && !state.tip">√</span>
         </div>
         <p>
-          <Icon :type="StyleType.local" /><span
-            >手机号格式有误，请检查后重试</span
-          >
+          <Icon :type="StyleType.local" /><span>手机号格式有误，请检查后重试</span>
         </p>
       </div>
       <div class="username">
         <div class="username-box">
           <div class="username-title">密码</div>
-          <input
-            type="password"
-            v-model="state.form.username"
-            placeholder="请输入密码"
-            @focus="phoneFocus"
-            @blur="phoneBlur"
-          />
+          <input type="password" v-model="state.form.username" placeholder="请输入密码" @focus="phoneFocus"
+            @blur="phoneBlur" />
         </div>
 
         <div class="icon center">
           <span v-if="state.verify === 'true' && !state.tip">√</span>
         </div>
         <p>
-          <Icon :type="StyleType.local" /><span
-            >手机号格式有误，请检查后重试</span
-          >
+          <Icon :type="StyleType.local" /><span>手机号格式有误，请检查后重试</span>
         </p>
       </div>
       <div class="username">
         <div class="username-box">
           <div class="username-title">确认密码</div>
-          <input
-            type="text"
-            v-model="state.form.username"
-            placeholder="请重新输入密码"
-            @focus="phoneFocus"
-            @blur="phoneBlur"
-          />
+          <input type="text" v-model="state.form.username" placeholder="请重新输入密码" @focus="phoneFocus" @blur="phoneBlur" />
         </div>
 
         <div class="icon center">
           <span v-if="state.verify === 'true' && !state.tip">√</span>
         </div>
         <p>
-          <Icon :type="StyleType.local" /><span
-            >手机号格式有误，请检查后重试</span
-          >
+          <Icon :type="StyleType.local" /><span>手机号格式有误，请检查后重试</span>
         </p>
       </div>
       <div class="nextStep center" @click="comfirmRegister">确认注册</div>
@@ -118,20 +88,25 @@ import { StyleType } from "../../types/enum";
 import { reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import Complate from "./Complate.vue";
+import { useStore } from "vuex";
+
 
 const reg =
   /^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/;
 
 const router = useRouter();
 const route = useRoute();
+const store = useStore();
 const state = reactive({
+  error: null as any,
   tip: false,
   verify: "",
   form: {
     phone: "",
     username: "",
+    role: "user"
   },
-  steps: ["第一步", "第二步", "第三步"],
+  steps: ["验证手机号", "填写账号信息", "注册成功"],
 });
 
 function phoneFocus() {
@@ -166,6 +141,16 @@ function comfirmRegister() {
     },
   });
 }
+
+async function send() {
+  if (!reg.test(state.form.phone)) {
+    state.verify = "false";
+    return;
+  }
+  state.error = await store.dispatch("SendSms", state.form.phone)
+
+
+}
 </script>
 
 <style scoped lang="less">
@@ -179,6 +164,7 @@ function comfirmRegister() {
   .info {
     display: flex;
     flex-direction: column;
+
     .username {
       display: flex;
       margin-top: 30px;
@@ -190,6 +176,7 @@ function comfirmRegister() {
         display: flex;
         box-sizing: border-box;
         border: 1px solid @borderColor;
+
         .username-title {
           width: 100px;
           height: 50px;
@@ -199,6 +186,7 @@ function comfirmRegister() {
           box-sizing: border-box;
           border-right: 1px solid @borderColor;
         }
+
         input {
           flex: 1;
           box-sizing: border-box;
@@ -273,6 +261,37 @@ function comfirmRegister() {
 
     &:hover {
       border: 1px solid #999;
+    }
+  }
+
+  .code {
+    width: 100%;
+    height: 50px;
+    // background: red;
+    margin-top: 20px;
+    box-sizing: border-box;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+
+    input {
+      border: none;
+      outline: none;
+      height: 100%;
+      flex: 1 1 auto;
+    }
+
+    .timer {
+      width: 60px;
+      height: 100%;
+      margin-left: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .send {
+        color: @baseColor;
+      }
     }
   }
 

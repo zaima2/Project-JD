@@ -5,5 +5,5 @@ export async function login(data:any) {
 }
 
 export async function whoami() {
-   return await request.post("/api/whoami");
+   return await request.get("/api/login/whoami");
 }

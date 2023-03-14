@@ -2,30 +2,35 @@ import Express from "express";
 
 import formatResponse from "../utils/response";
 
-import { generator,User,verify } from "../utils/token";
-// import { fetchAdmin } from "../service/admin";
+import { generator,verify } from "../utils/token";
+import { findUserByBase } from "../service/user";
+import sha256 from "sha256";
+import server from "../../configure/server";
+import { User } from "../types/User";
 
 const router = Express();
 
+// 根据基础信息登录
 
 router.post("/",async (req:any,res,next)=>{
-    
-    // 此处将传过来的code与req.captch对比是否相同
-    if(+req.body.code === req.session.captcha[req.body.phone]) {
-        
-        // 假如成功
 
-        // 信息验证成功，从数据库中查找用户
+        if(!req.body.username || !req.body.password) {
+            res.send(formatResponse(400,"参数错误",false));
+            return;
+        }
 
-    //   const user = JSON.parse(JSON.stringify(await fetchAdmin(req.body.phone)));
-        
+        //从数据库中查找用户
 
+        req.body.password = sha256(req.body.password + server.complexKey);
+
+       const user = JSON.parse(JSON.stringify(await findUserByBase(req.body)));
+             
        //生成token
 
     try{
-        // const authData = generator({phone:user.phone,id:user.id,avatar:user.avatar},7);
-    // res.setHeader("authorization",'Bearer ' + authData.token);
-    // res.send(formatResponse(206,"登录成功",authData.user));
+        const authData = generator({username:user.username,id:user.id,role:user.role,phone:user.phone},7);
+    res.setHeader("authorization",'Bearer ' + authData.token);
+    res.send(formatResponse(0,"登录成功",authData.user));
     }
    
   catch(err:any) {
@@ -34,14 +39,13 @@ router.post("/",async (req:any,res,next)=>{
 
     if(err.code === "ETIMEDOUT") {
         res.send(formatResponse(406,"网络错误，请重新登录",null));
+        return;
     }
-    res.send(formatResponse(401,"登录失效",null));
+    res.send(formatResponse(401,"登录失败，请检查用户名或者密码",null));
     return;
   }
         
-    } else {
-        res.send(formatResponse(403,"验证码错误",null));
-    }
+    
 
 })
 

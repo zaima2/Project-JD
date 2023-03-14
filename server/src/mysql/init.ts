@@ -3,6 +3,5 @@ import "./model/user"
 
 (async function () {
     await connect.sync();
-    console.log("数据库模型初始化完成!");
-    
+    console.log("数据库模型初始化完成!");  
 })()
