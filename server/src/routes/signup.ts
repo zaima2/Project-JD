@@ -1,8 +1,6 @@
 import Express from "express";
 import {signUp} from "../service/register";
 import response from "../utils/response";
-import sha from "sha256";
-import server from "../../configure/server";
 import { checkUser } from "../service/user";
 const router =  Express.Router();
 
@@ -23,8 +21,6 @@ router.post("/",async (req:any,res,next) => {
         res.send(response(400,"两次密码输入不符,请检查后重试",false));
     }
 
-    req.body.password = sha(req.body.password + server.complexKey);
-    
 
     try {
         const resp = await signUp(req.body) as any;
