@@ -35,7 +35,7 @@ app.use(
            
             {url:/\api\/sms/, method:"POST"},
             {url:"/api/login",method:"POST"}, 
-            {url:"/api/signup",method:"POST"},
+            {url:/\/api\/signup[\w+]?/,method:"POST"},
             {url:"/api/login/whoami",method:"GET"},
            
         ]}

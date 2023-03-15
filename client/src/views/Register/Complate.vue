@@ -5,16 +5,35 @@
     </div>
     <div class="complate-title">注册完成</div>
     <div class="complate-description">
-      将在<span>{{ 10 }}</span
-      >秒后自动跳转到登录前的页面
+      将在<span>{{ store.state.timer }}</span>秒后自动跳转到登录页面
     </div>
-    <div class="routerTo">立即跳转</div>
+    <div class="routerTo" @click="goLogin">立即跳转</div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { watchEffect } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import Icon from "../../components/Icon.vue";
 import { StyleType } from "../../types/enum";
+
+const router = useRouter();
+const store = useStore();
+
+store.dispatch("startTimer", 10);
+
+watchEffect(() => {
+  if (store.state.timer === 0) {
+    goLogin();
+  }
+})
+
+function goLogin() {
+  router.push({
+    name: "Login"
+  })
+}
 </script>
 
 <style scoped lang="less">
@@ -26,22 +45,27 @@ import { StyleType } from "../../types/enum";
   align-items: center;
   //   background: red;
   flex-direction: column;
+
   .complate-title {
     margin-top: 20px;
     font-size: 22px;
     font-weight: bolder;
     color: @baseColor;
   }
+
   .complate-description {
     margin-top: 20px;
+
     span {
       color: #000;
     }
   }
+
   .routerTo {
     margin-top: 20px;
     color: @baseColor;
     cursor: pointer;
+
     &:hover {
       text-decoration: underline;
     }

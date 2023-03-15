@@ -9,3 +9,12 @@ export async function findOneUser(params:any) {
         }
     })
 }
+
+
+export async function findOneUserByUsername(username:string) {
+    return await model.findOne({
+        where:{
+            username
+        }
+    })
+}
