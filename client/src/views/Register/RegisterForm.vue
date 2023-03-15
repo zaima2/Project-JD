@@ -1,55 +1,31 @@
 <template>
   <div class="registerForm-container">
     <div class="prograss">
-      <Prograss
-        :steps="state.steps"
-        :current="route.query.step ? +route.query.step : 0"
-      />
+      <Prograss :steps="state.steps" :current="route.query.step ? +route.query.step : 0" />
     </div>
 
     <div v-if="route.query.step && +route.query.step === 1" class="phone">
       <div class="phoneNumber">
         <div class="country">中国(+86)</div>
-        <input
-          type="text"
-          v-model="state.form.phone"
-          placeholder="请输入手机号"
-          @focus="phoneFocus"
-          @blur="phoneBlur"
-        />
+        <input type="text" v-model="state.form.phone" placeholder="请输入手机号" @focus="phoneFocus" @blur="phoneBlur" />
         <div class="icon center">
           <span v-if="state.tip">X</span>
           <span v-if="state.verify === 'true' && !state.tip">√</span>
         </div>
       </div>
       <p v-if="state.tip && !state.form.phone">
-        <Icon :type="StyleType.edit" /><span
-          >验证完成后，你可以使用该手机登录或找回密码</span
-        >
+        <Icon :type="StyleType.edit" /><span>验证完成后，你可以使用该手机登录或找回密码</span>
       </p>
-      <p
-        v-if="
-          (state.verify === 'false' && state.form.phone) ||
-          state.verify === 'false'
-        "
-      >
-        <Icon :type="StyleType.local" /><span
-          >手机号格式有误，请检查后重试</span
-        >
+      <p v-if="
+        (state.verify === 'false' && state.form.phone) ||
+        state.verify === 'false'
+      ">
+        <Icon :type="StyleType.local" /><span>手机号格式有误，请检查后重试</span>
       </p>
       <div class="code">
-        <input
-          type="text"
-          v-model="state.form.code"
-          placeholder="请填写验证码"
-        />
+        <input type="text" v-model="state.form.captcha" placeholder="请填写验证码" />
         <div class="timer">
-          <span
-            class="hover-base send pointer"
-            v-if="store.state.timer === 0"
-            @click="send"
-            >发送验证码</span
-          >
+          <span class="hover-base send pointer" v-if="store.state.timer === 0" @click="send">发送验证码</span>
           <span v-else>{{ store.state.timer }}</span>
         </div>
       </div>
@@ -68,64 +44,42 @@
       <div class="username">
         <div class="username-box">
           <div class="username-title">用户名</div>
-          <input
-            type="text"
-            v-model="state.form.username"
-            placeholder="请输入用户名"
-            @focus="phoneFocus"
-            @blur="phoneBlur"
-          />
+          <input type="text" v-model="state.form.username" @input="usernameInputAction" placeholder="请输入用户名"
+            @blur="userNameBlur" />
+          <div class="icon center">
+            <span v-if="state.usernameCheck">√</span>
+          </div>
         </div>
-
-        <div class="icon center">
-          <span v-if="state.verify === 'true' && !state.tip">√</span>
-        </div>
-        <p>
-          <Icon :type="StyleType.local" /><span
-            >手机号格式有误，请检查后重试</span
-          >
+        <p v-if="state.usernameErrorMsg">
+          <Icon :type="StyleType.local" /><span>{{ state.usernameErrorMsg.msg }}</span>
         </p>
       </div>
-      <div class="username">
-        <div class="username-box">
-          <div class="username-title">密码</div>
-          <input
-            type="password"
-            v-model="state.form.username"
-            placeholder="请输入密码"
-            @focus="phoneFocus"
-            @blur="phoneBlur"
-          />
+      <div class="password">
+        <div class="password-box">
+          <div class="password-title">密码</div>
+          <input type="password" v-model="state.form.password" placeholder="请输入密码" @input="passwordInputAction"
+            @blur="passwordBlur" />
+          <div class="icon center">
+            <span v-if="state.passwordCheck">√</span>
+          </div>
         </div>
-
-        <div class="icon center">
-          <span v-if="state.verify === 'true' && !state.tip">√</span>
-        </div>
-        <p>
-          <Icon :type="StyleType.local" /><span
-            >手机号格式有误，请检查后重试</span
-          >
+        <p v-if="state.passwordErrorMsg">
+          <Icon :type="StyleType.local" /><span>{{ state.passwordErrorMsg }}</span>
         </p>
       </div>
-      <div class="username">
-        <div class="username-box">
-          <div class="username-title">确认密码</div>
-          <input
-            type="text"
-            v-model="state.form.username"
-            placeholder="请重新输入密码"
-            @focus="phoneFocus"
-            @blur="phoneBlur"
-          />
+      <div class="repassword">
+        <div class="repassword-box">
+          <div class="repassword-title">确认密码</div>
+          <input type="password" v-model="state.form.repassword" placeholder="请重新输入密码" @input="comfirmPasswordInputAction"
+            @blur="comfirmPasswordBlur" />
+          <div class="icon center">
+            <span v-if="state.rePasswordCheck">√</span>
+          </div>
         </div>
 
-        <div class="icon center">
-          <span v-if="state.verify === 'true' && !state.tip">√</span>
-        </div>
-        <p>
-          <Icon :type="StyleType.local" /><span
-            >手机号格式有误，请检查后重试</span
-          >
+
+        <p v-if="state.repasswordErrorMsg">
+          <Icon :type="StyleType.local" /><span>{{ state.repasswordErrorMsg }}</span>
         </p>
       </div>
       <div class="nextStep center" @click="comfirmRegister">确认注册</div>
@@ -144,6 +98,7 @@ import { useRouter, useRoute } from "vue-router";
 import Complate from "./Complate.vue";
 import { useStore } from "vuex";
 import { checkCode } from "../../api/sms";
+import { checkUser, signup } from "../../api/signup";
 
 const reg =
   /^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\d{8}$/;
@@ -154,13 +109,21 @@ const store = useStore();
 const state = reactive({
   error: null as any,
   tip: false,
+  usernameCheck: false,
+  passwordCheck: false,
+  rePasswordCheck: false,
+  usernameErrorMsg: null as any,
+  passwordErrorMsg: "",
+  repasswordErrorMsg: "",
   verify: "",
   codeVerify: false,
   form: {
-    code: "",
+    captcha: "",
     phone: "",
     username: "",
     role: "user",
+    password: "",
+    repassword: ""
   },
   steps: ["验证手机号", "填写账号信息", "注册成功"],
 });
@@ -179,7 +142,7 @@ function phoneBlur() {
 }
 
 async function nextStep() {
-  const data = (await checkCode(state.form.phone, state.form.code)) as any;
+  const data = (await checkCode(state.form.phone, state.form.captcha)) as any;
 
   if (data.code && data.code !== 0) {
     state.codeVerify = true;
@@ -193,13 +156,22 @@ async function nextStep() {
   }
 }
 
-function comfirmRegister() {
-  router.push({
-    query: {
-      ...route.query,
-      step: 3,
-    },
-  });
+async function comfirmRegister() {
+
+  if (state.usernameCheck && state.passwordCheck && state.rePasswordCheck) {
+    const resp = await signup(state.form);
+    if (!resp.code && resp) {
+      router.push({
+        query: {
+          ...route.query,
+          step: 3,
+        },
+      });
+    }
+
+  } else {
+    return;
+  }
 }
 
 async function send() {
@@ -209,6 +181,59 @@ async function send() {
   }
   state.error = await store.dispatch("SendSms", state.form.phone);
 }
+
+
+async function userNameBlur() {
+  if (!state.form.username) {
+    return;
+  }
+
+  const user = await checkUser(state.form.username);
+  if (user && !user.code) {
+    state.usernameCheck = true;
+  } else if (user.code && user.code !== 0) {
+    state.usernameErrorMsg = user;
+  }
+
+}
+
+
+function passwordBlur() {
+  if (state.form.password.length < 8 || state.form.password.length > 16) {
+    state.passwordErrorMsg = "密码输入错误，密码必须是8-16位之间"
+  } else {
+    state.passwordCheck = true;
+  }
+}
+
+function comfirmPasswordBlur() {
+  if (!state.form.repassword) {
+    return;
+  }
+
+  if (state.form.password === state.form.repassword) {
+    state.rePasswordCheck = true;
+  } else {
+    state.repasswordErrorMsg = "密码不一致，请检查后重试"
+  }
+}
+
+
+function usernameInputAction() {
+  state.usernameCheck = false;
+  state.usernameErrorMsg = null;
+}
+
+function passwordInputAction() {
+  state.passwordCheck = false;
+  state.passwordErrorMsg = ""
+}
+
+function comfirmPasswordInputAction() {
+  state.rePasswordCheck = false;
+  state.repasswordErrorMsg = "";
+}
+
 </script>
 
 <style scoped lang="less">
@@ -223,19 +248,26 @@ async function send() {
     display: flex;
     flex-direction: column;
 
-    .username {
+    .username,
+    .password,
+    .repassword {
       display: flex;
       margin-top: 30px;
       height: 100%;
       font-size: 16px;
       flex-direction: column;
 
-      .username-box {
+      .username-box,
+      .password-box,
+      .repassword-box {
         display: flex;
         box-sizing: border-box;
         border: 1px solid @borderColor;
+        height: 100%;
 
-        .username-title {
+        .username-title,
+        .password-title,
+        .repassword-title {
           width: 100px;
           height: 50px;
           line-height: 50px;
@@ -252,6 +284,10 @@ async function send() {
           font-size: inherit;
           border: none;
           outline: none;
+        }
+
+        .icon {
+          width: 30px;
         }
       }
     }

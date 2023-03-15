@@ -22,10 +22,6 @@ const model = connect.define("user",{
     phone:{
         type:DataTypes.STRING,
         allowNull:false
-    },
-    val: {
-        type:DataTypes.STRING,
-        allowNull:false
     }
 },{
     timestamps:true,

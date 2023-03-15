@@ -57,16 +57,15 @@ const store = createStore({
         },
 
         startTimer(store,payload) {
-            if(store.state.stamp) {
-                return;
-            }
+           clearInterval( store.state.stamp as NodeJS.Timer)
     
            store.commit("timer",payload);
     
             store.state.stamp = setInterval(() => {
                 store.commit("timer",store.state.timer - 1);
                 if(store.state.timer === 0) {
-                    clearInterval(store.state.stamp as NodeJS.Timer)
+                    clearInterval(store.state.stamp as NodeJS.Timer);
+
                 }
             }, 1000)
     
