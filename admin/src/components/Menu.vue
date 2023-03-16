@@ -26,7 +26,9 @@
                     <span>用户</span>
                 </template>
                 <el-menu-item-group title="Group One">
-                    <el-menu-item index="2-1">item one</el-menu-item>
+                    <el-menu-item @click="toUser" index="2-1">
+                        用户管理
+                    </el-menu-item>
                     <el-menu-item index="2-2">item two</el-menu-item>
                 </el-menu-item-group>
             </el-sub-menu>
@@ -56,11 +58,20 @@ import {
     Location,
     Setting,
 } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 const handleOpen = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
+}
+
+function toUser() {
+    router.push({
+        name: "User"
+    })
 }
 
 </script>
@@ -71,6 +82,6 @@ const handleClose = (key: string, keyPath: string[]) => {
     width: 200px;
     height: 100%;
     overflow-y: scroll;
-
+    background-color: #131b29
 }
 </style>
