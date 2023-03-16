@@ -18,3 +18,10 @@ export async function findOneUserByUsername(username:string) {
         }
     })
 }
+
+export async function findAllUser(page:number,limit:number) {
+    return await model.findAndCountAll({
+       offset:(page - 1) * limit,
+        limit
+    })
+}

@@ -8,6 +8,7 @@ import { expressjwt as JWT, Request as JWTRequest } from "express-jwt";
 import formatResponse from './utils/response';
 import Sms from "./routes/sms";
 import Login from "./routes/login";
+import User from "./routes/user";
 
 import sessionScure from "../configure/session";
 import "./mysql/init"
@@ -28,21 +29,21 @@ const app = Express();
 
 // jwt
 
-app.use(
-    JWT({secret:sha256(token.SecrectKey), algorithms: ["HS256"],credentialsRequired:true}).unless(
-        {path:[
-            {url:/\/imgs\/[\w]+/,methods:["GET"]},
+// app.use(
+//     JWT({secret:sha256(token.SecrectKey), algorithms: ["HS256"],credentialsRequired:true}).unless(
+//         {path:[
+//             {url:/\/imgs\/[\w]+/,methods:["GET"]},
            
-            {url:/\api\/sms/, method:"POST"},
-            {url:"/api/login",method:"POST"}, 
-            {url:/\/api\/signup[\w+]?/,method:"POST"},
-            {url:"/api/login/whoami",method:"GET"},
+//             {url:/\api\/sms/, method:"POST"},
+//             {url:"/api/login",method:"POST"}, 
+//             {url:/\/api\/signup[\w+]?/,method:"POST"},
+//             {url:"/api/login/whoami",method:"GET"},
            
-        ]}
-    ),(req,res,next)=>{
-        next();
-    }
-)
+//         ]}
+//     ),(req,res,next)=>{
+//         next();
+//     }
+// )
 
 // static
 
@@ -65,6 +66,7 @@ app.use(json());
 app.use("/api/signup",Register);
 app.use("/api/sms",Sms);
 app.use("/api/login",Login);
+app.use("/api/user",User);
 
 // 错误处理
 
