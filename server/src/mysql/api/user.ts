@@ -1,4 +1,5 @@
 
+import { Op } from "sequelize";
 import model from "../model/user";
 
 export async function findOneUser(params:any) {
@@ -23,5 +24,24 @@ export async function findAllUser(page:number,limit:number) {
     return await model.findAndCountAll({
        offset:(page - 1) * limit,
         limit
+    })
+}
+
+export async function searchUser(keyword:string) {
+    console.log(keyword);
+    
+   return await model.findAndCountAll({
+            where:{
+              [Op.or]:[
+               {username:{
+                [Op.like]:`%${keyword}%`
+               }},
+               {
+                phone:{
+                    [Op.like]:`%${keyword}%`
+                }
+               }
+              ]
+            }
     })
 }

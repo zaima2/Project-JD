@@ -4,6 +4,9 @@ import { signUp } from "../service/register";
 import server from "../../configure/server";
 
 (async function () {
+
+    await connect.sync({alter:true});
+
     const root = await user.findOne({
         where:{
             username:"root"
@@ -24,7 +27,5 @@ import server from "../../configure/server";
             console.log("root用户创建失败，原因是" + e);
         }
     }
-
-    await connect.sync();
     console.log("数据库模型初始化完成!");  
 })()
