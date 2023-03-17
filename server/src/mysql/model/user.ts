@@ -22,6 +22,14 @@ const model = connect.define("user",{
     phone:{
         type:DataTypes.STRING,
         allowNull:false
+    },
+    status:{
+        type:DataTypes.STRING,
+        defaultValue:"normal"
+    },
+    credit:{
+        type:DataTypes.STRING,
+        defaultValue:"500"
     }
 },{
     timestamps:true,

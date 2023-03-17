@@ -26,7 +26,13 @@
     display: flex;
 
     .main {
-        flex: 1 1 auto;
+        width: calc(100% - 200px);
     }
+
+    .left,
+    .right {
+        flex: 0 0 auto;
+    }
+
 }
 </style>

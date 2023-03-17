@@ -5,7 +5,7 @@
             <el-sub-menu index="1">
                 <template #title>
                     <el-icon>
-                        <location />
+                        <Histogram />
                     </el-icon>
                     <span>统计</span>
                 </template>
@@ -21,7 +21,7 @@
             <el-sub-menu index="2">
                 <template #title>
                     <el-icon>
-                        <location />
+                        <User />
                     </el-icon>
                     <span>用户</span>
                 </template>
@@ -35,7 +35,7 @@
             <el-sub-menu index="3">
                 <template #title>
                     <el-icon>
-                        <location />
+                        <ShoppingCartFull />
                     </el-icon>
                     <span>商品</span>
                 </template>
@@ -44,7 +44,18 @@
                     <el-menu-item index="3-2">item two</el-menu-item>
                 </el-menu-item-group>
             </el-sub-menu>
-
+            <el-sub-menu index="4">
+                <template #title>
+                    <el-icon>
+                        <setting />
+                    </el-icon>
+                    <span>设置</span>
+                </template>
+                <el-menu-item-group title="Group One">
+                    <el-menu-item index="3-1">item one</el-menu-item>
+                    <el-menu-item index="3-2">item two</el-menu-item>
+                </el-menu-item-group>
+            </el-sub-menu>
         </el-menu>
 
     </div>
@@ -57,6 +68,9 @@ import {
     Menu as IconMenu,
     Location,
     Setting,
+    User,
+    Histogram,
+    ShoppingCartFull
 } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
 
@@ -70,7 +84,11 @@ const handleClose = (key: string, keyPath: string[]) => {
 
 function toUser() {
     router.push({
-        name: "User"
+        name: "User",
+        query: {
+            limit: 10,
+            page: 1
+        }
     })
 }
 

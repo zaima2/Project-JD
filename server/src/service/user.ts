@@ -1,4 +1,4 @@
-import { findAllUser, findOneUser,findOneUserByUsername } from "../mysql/api/user";
+import { findAllUser, findOneUser,findOneUserByUsername, searchUser } from "../mysql/api/user";
 
 export async function findUserByBase(userInfo) {
     return await findOneUser(userInfo);
@@ -11,3 +11,7 @@ export async function checkUser(username:string){
 export async function fetchAllUser(page:number,limit:number) {
    return await findAllUser(page,limit);
 } 
+
+export async function fetchUserByKeyword(keyword:string) {
+    return await searchUser(keyword);
+}
