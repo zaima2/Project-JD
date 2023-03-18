@@ -1,12 +1,17 @@
 
 import { Op } from "sequelize";
 import model from "../model/user";
+import roler from "../model/roler";
 
 export async function findOneUser(params:any) {
   return await model.findOne({
         where:{
             username:params.username,
             password:params.password
+        },
+        include:{
+            model:roler,
+            as:"roler"
         }
     })
 }
@@ -16,6 +21,10 @@ export async function findOneUserByUsername(username:string) {
     return await model.findOne({
         where:{
             username
+        },
+        include:{
+            model:roler,
+            as:"roler"
         }
     })
 }
@@ -23,13 +32,18 @@ export async function findOneUserByUsername(username:string) {
 export async function findAllUser(page:number,limit:number) {
     return await model.findAndCountAll({
        offset:(page - 1) * limit,
-        limit
+        limit,
+        include:{
+            model:roler,
+            as:"roler"
+        },
+        order:[
+            ["createdAt","DESC"]
+        ]
     })
 }
 
 export async function searchUser(keyword:string) {
-    console.log(keyword);
-    
    return await model.findAndCountAll({
             where:{
               [Op.or]:[
@@ -42,6 +56,13 @@ export async function searchUser(keyword:string) {
                 }
                }
               ]
-            }
+            },
+            include:{
+                model:roler,
+                as:"roler"
+            },
+            order:[
+                ["createdAt","DESC"]
+            ]
     })
 }

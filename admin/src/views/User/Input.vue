@@ -1,6 +1,7 @@
 <template>
     <div class="input-container">
-        <el-input v-model="state.keyword" class="w-50 m-2" placeholder="请输入用户名或手机号以搜索用户" :prefix-icon="Search" />
+        <el-input v-model="state.keyword" @input="handelInput" class="w-50 m-2" placeholder="请输入用户名或手机号以搜索用户"
+            :prefix-icon="Search" />
     </div>
 </template>
 
@@ -11,6 +12,13 @@ import { reactive } from 'vue';
 const state = reactive({
     keyword: ""
 })
+
+const emits = defineEmits(["input"])
+
+
+function handelInput() {
+    emits("input", state.keyword);
+}
 </script>
 
 

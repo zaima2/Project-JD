@@ -77,6 +77,7 @@ import { StyleType } from "../types/enum";
 import Reference from "../components/Reference/index.vue";
 import { reactive, watchEffect } from "vue";
 import { useStore } from "vuex";
+import configure from "../configure";
 const store = useStore();
 const router = useRouter();
 
@@ -106,6 +107,7 @@ function goRegister() {
     query: {
       step: 1,
       type: "personal",
+      sign: configure.userSign
     },
   });
 }

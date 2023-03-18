@@ -121,12 +121,14 @@ const state = reactive({
     captcha: "",
     phone: "",
     username: "",
-    role: "user",
+    role: "",
     password: "",
     repassword: ""
   },
   steps: ["验证手机号", "填写账号信息", "注册成功"],
 });
+
+state.form.role = route.query.sign;
 
 function phoneFocus() {
   state.tip = true;
