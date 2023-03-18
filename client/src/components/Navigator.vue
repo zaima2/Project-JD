@@ -9,11 +9,12 @@
       </div>
       <div class="right">
         <div class="navigator-item" v-if="!store.state.user">
-          <router-link
-            :to="{
-              name: 'Login',
-            }"
-          >
+          <router-link :to="{
+            name: 'Login',
+            query: {
+              sign: configure.userSign
+            }
+          }">
             <span class="hover-base"> 你好，请登录 </span>
           </router-link>
         </div>
@@ -24,22 +25,15 @@
           </router-link>
         </div>
 
-        <div
-          class="navigator-item hover-base f user-box underWhite"
-          v-if="store.state.user"
-        >
+        <div class="navigator-item hover-base f user-box underWhite" v-if="store.state.user">
           <div class="user">
             <div class="username">{{ store.state.user.username }}</div>
-            <span
-              class="plus-sign"
-              :style="{
-                backgroundColor:
-                  store.state.user.vip === false
-                    ? 'rgb(202, 187, 103)'
-                    : 'rgb(202, 187, 103)',
-              }"
-              >PLUS</span
-            >
+            <span class="plus-sign" :style="{
+              backgroundColor:
+                store.state.user.vip === false
+                  ? 'rgb(202, 187, 103)'
+                  : 'rgb(202, 187, 103)',
+            }">PLUS</span>
             <Icon :type="StyleType.arrowUp" />
           </div>
           <div class="model">
@@ -112,6 +106,7 @@ import MyJDModel from "./MyJDModel.vue";
 import EnterpriseCollection from "./EnterpriseCollection.vue";
 import BussinsService from "./BussinsService.vue";
 import WebSiteRouter from "./WebSiteRouter.vue";
+import configure from "../configure";
 
 const store = useStore();
 </script>
@@ -178,14 +173,17 @@ const store = useStore();
         &.user-box {
           height: 100%;
           position: relative;
+
           &.f {
             flex: 0 0 150px;
           }
+
           &:hover {
             background-color: #fff;
             border-left: 1px solid #ccc;
             border-right: 1px solid #ccc;
             box-sizing: border-box;
+
             .model {
               display: block;
             }
@@ -197,6 +195,7 @@ const store = useStore();
             align-items: center;
             justify-content: flex-end;
             height: 100%;
+
             .plus-sign {
               padding: 3px 5px;
               border-radius: 5px;

@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="search-box">
-            <Input />
+            <Input @input="inputHandle" />
         </div>
     </div>
 </template>
@@ -20,7 +20,15 @@ interface PropsType {
 }
 
 
-const props = defineProps<PropsType>()
+const props = defineProps<PropsType>();
+const emits = defineEmits(["input"])
+
+
+
+
+function inputHandle(val: string) {
+    emits("input", val)
+}
 </script>
 
 

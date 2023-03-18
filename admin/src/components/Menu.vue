@@ -29,7 +29,7 @@
                     <el-menu-item @click="toUser" index="2-1">
                         用户管理
                     </el-menu-item>
-                    <el-menu-item index="2-2">item two</el-menu-item>
+                    <el-menu-item @click="toRoler" index="2-2">角色</el-menu-item>
                 </el-menu-item-group>
             </el-sub-menu>
             <el-sub-menu index="3">
@@ -89,6 +89,12 @@ function toUser() {
             limit: 10,
             page: 1
         }
+    })
+}
+
+function toRoler() {
+    router.push({
+        name: "Roler"
     })
 }
 

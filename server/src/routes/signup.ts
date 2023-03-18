@@ -3,6 +3,7 @@ import {signUp} from "../service/register";
 import response from "../utils/response";
 import { checkUser } from "../service/user";
 const router =  Express.Router();
+import roler from "../mysql/model/roler";
 
 
 router.post("/",async (req:any,res,next) => {
@@ -33,6 +34,11 @@ router.post("/",async (req:any,res,next) => {
             return;
         }
 
+       await roler.increment("total",{
+            where:{
+                id: req.body.role
+            }
+        });
         res.send(response(0,"注册成功",resp));
         req.session.captcha[req.body.phone] = null;
     } catch (err) {
