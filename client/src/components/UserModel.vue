@@ -2,17 +2,19 @@
   <div class="user-model-container">
     <div class="user-info">
       <div class="avatar" @click="goPersonalInfo">
-        <Avatar :src="
-          store.state.user
-            ? store.state.user.avatar
+        <Avatar
+          :src="
+            store.state.user
               ? store.state.user.avatar
-              : '/src/assets/userDefaultAvatar.jpeg'
-            : '/src/assets/userAvatar.png'
-        " />
+                ? store.state.user.avatar
+                : '/src/assets/userDefaultAvatar.jpeg'
+              : '/src/assets/userAvatar.png'
+          "
+        />
       </div>
       <div class="privilege">
         <div class="user-operator">
-          <div class="vip-leavel">
+          <div class="vip-level">
             <Icon :type="StyleType.chat" />
             <span class="plus">PLUS</span>
           </div>
@@ -106,7 +108,7 @@ function logout() {
         width: 100%;
         height: 30px;
 
-        .vip-leavel {
+        .vip-level {
           display: flex;
           justify-content: center;
           align-items: center;
