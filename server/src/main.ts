@@ -9,7 +9,8 @@ import formatResponse from './utils/response';
 import Sms from "./routes/sms";
 import Login from "./routes/login";
 import User from "./routes/user";
-import Category from './routes/category'
+import Category from './routes/category';
+import Goods from "./routes/goods";
 
 import sessionScure from "../configure/session";
 import "./mysql/init"
@@ -68,8 +69,8 @@ app.use("/api/signup",Register);
 app.use("/api/sms",Sms);
 app.use("/api/login",Login);
 app.use("/api/user",User);
-app.use('/api/goods/category',Category)
-
+app.use('/api/goods/category',Category);
+app.use("/api/goods",Goods);
 // 错误处理
 
 app.use((err:any, req:any, res:any, next:any)=>{

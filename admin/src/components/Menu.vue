@@ -1,14 +1,7 @@
 <template>
   <div class="menu-container">
-    <el-menu
-      active-text-color="#ffd04b"
-      background-color="#545c64"
-      class="el-menu-vertical-demo"
-      default-active="2"
-      text-color="#fff"
-      @open="handleOpen"
-      @close="handleClose"
-    >
+    <el-menu active-text-color="#ffd04b" background-color="#545c64" class="el-menu-vertical-demo" default-active="2"
+      text-color="#fff" @open="handleOpen" @close="handleClose">
       <el-sub-menu index="1">
         <template #title>
           <el-icon>
@@ -33,18 +26,11 @@
           <span>用户</span>
         </template>
         <el-menu-item-group title="Group One">
-          <el-menu-item
-            @click="goPage('User', { query: { page: 1, limit: 10 } })"
-            index="2-1"
-          >
+          <el-menu-item @click="goPage('User', { query: { page: 1, limit: 10 } })" index="2-1">
             用户管理
           </el-menu-item>
           <el-menu-item @click="goPage('Roler')" index="2-2">角色</el-menu-item>
-          <el-menu-item
-            @click="goPage('Admin', { query: { page: 1, limit: 10 } })"
-            index="2-3"
-            >管理员</el-menu-item
-          >
+          <el-menu-item @click="goPage('Admin', { query: { page: 1, limit: 10 } })" index="2-3">管理员</el-menu-item>
         </el-menu-item-group>
       </el-sub-menu>
       <el-sub-menu index="3">
@@ -55,11 +41,9 @@
           <span>商品</span>
         </template>
         <el-menu-item-group title="Group One">
-          <el-menu-item index="3-1">发布商品</el-menu-item>
+          <el-menu-item index="3-1" @click="goPage('Publish')">发布商品</el-menu-item>
           <el-menu-item index="3-2">商品管理</el-menu-item>
-          <el-menu-item index="3-3" @click="goPage('Category')"
-            >分类管理</el-menu-item
-          >
+          <el-menu-item index="3-3" @click="goPage('Category')">分类管理</el-menu-item>
           <el-menu-item index="3-4">订单</el-menu-item>
         </el-menu-item-group>
       </el-sub-menu>

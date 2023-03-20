@@ -1,14 +1,7 @@
 <template>
   <div class="relationship-container">
-    <el-tree
-      :data="props.data"
-      :props="NodeProp"
-      :load="loadNode"
-      :auto-expand-parent="false"
-      lazy
-      :on-current-change="handleChange"
-      :render-content="renderContent"
-    />
+    <el-tree :data="props.data" :props="NodeProp" :load="loadNode" :auto-expand-parent="false" lazy
+      :on-current-change="handleChange" :render-content="renderContent" />
     <el-dialog v-model="state.dialogShow" title="添加类型">
       <div class="tip">
         在类型
@@ -22,11 +15,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="state.dialogShow = false">取消</el-button>
-          <el-button
-            :loading="state.loading"
-            type="primary"
-            @click="createCategory"
-          >
+          <el-button :loading="state.loading" type="primary" @click="createCategory">
             添加
           </el-button>
         </span>
@@ -35,7 +24,9 @@
 
     <el-dialog v-model="state.forbid">
       <div class="error-container">
-        <el-icon :size="80"><WarningFilled /></el-icon>
+        <el-icon :size="80">
+          <WarningFilled />
+        </el-icon>
         <div class="tip">无法在该分类下创建分类，最多只能存在四级分类</div>
       </div>
     </el-dialog>
@@ -177,9 +168,10 @@ const loadNode = async (node: Node, resolve: (data: Tree[]) => void) => {
 <style lang="less" scoped>
 .tip {
   width: 100%;
-  height: 50px;
+  // height: 50px;
   text-align: center;
   line-height: 50px;
+
   .category {
     color: red;
   }
@@ -192,6 +184,7 @@ const loadNode = async (node: Node, resolve: (data: Tree[]) => void) => {
   align-items: center;
   font-size: 40px;
   color: #ccc;
+
   .tip {
     color: inherit;
     margin-top: 20px;
