@@ -49,6 +49,12 @@ router.get("/g/:id",async (req,res,next) => {
     }
 })
 
+// 删除类型
+// router.delete("/:level/:id",(req,res,next) => {
+//     const data = deleteCategory(+req.params.level,req.params.id);
+//     res.send(formatResponse(0,'删除成功',data));
+// })
+
 
 
 export default router;

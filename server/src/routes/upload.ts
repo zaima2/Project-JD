@@ -8,18 +8,21 @@ import upload from "../utils/uploads";
 
 (async function() {
     router.post("/avatar/:uid",await (await upload(path.resolve(__dirname,"../../../uploads/avatar"))).single("avatar"), async (req,res,next)=>{
-        console.log("sflsf");
+        // console.log("sflsf");
         
     //    const user =  await updateUser({avatar:`/imgs/avatar/${req.file?.filename}`},req.params.uid);
     
-        // const authData = generator({phone:user.phone,id:user.id,avatar:user.avatar},7);
+    //     const authData = generator({phone:user.phone,id:user.id,avatar:user.avatar},7);
 
-        // console.log(authData);
+    //     console.log(authData);
         
 
         // res.send(formatResponse(0,"上传成功",{user,token:'Bearer ' + authData.token}));
-    })
+    });
+
+    router.post("/goods/:uid",)
 })()
 
 
 export default router;
+

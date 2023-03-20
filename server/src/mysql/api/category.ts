@@ -67,3 +67,21 @@ export async function findCategories(level:number,body) {
         throw Error("参数错误");
     }
 }
+
+
+
+// export async function deleteCategory(level:number,id:string) {
+//     if(level === 4) {
+//        return await modellevel4.destroy({
+//         where:{
+//             id
+//         }
+//        });
+//     } else if(level === 3) {
+//        await modellevel3.destroy({
+//         where:{
+//             id
+//         }
+//        })
+//     }
+// }

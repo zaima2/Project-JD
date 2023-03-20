@@ -8,6 +8,7 @@ import  "./model/category";
 import  './model/category2';
 import  './model/category3';
 import  './model/category4';
+import "./model/goods";
 
 (async function () {
 
@@ -33,7 +34,7 @@ import  './model/category4';
             await admin.create({
                 username:'root',
                 password:sha256(server.rootPwd + server.complexKey),
-                authlevel:0,
+                authLevel:0,
                 status:'normal'
             })
             console.log("创建root用户成功");
