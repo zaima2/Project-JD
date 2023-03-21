@@ -33,7 +33,11 @@ const model = connect.define("goods",{
     },
     serviceSupport:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:false,
+        get() {
+            const value = this.getDataValue("serviceSupport");
+            return JSON.parse(value);
+        },
     },
     brand:{
         type:DataTypes.STRING,
@@ -65,11 +69,23 @@ const model = connect.define("goods",{
     },
     tags:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:false,
+        get() {
+            const value = this.getDataValue("tags");
+            return JSON.parse(value);
+        },
     },
     keywords:{
         type:DataTypes.STRING,
-        allowNull:false
+        allowNull:false,
+        get() {
+            const value = this.getDataValue("keywords");
+            return JSON.parse(value);
+        },
+    },
+    sold:{
+        type:DataTypes.INTEGER,
+        defaultValue:0
     }
 },{
     timestamps:true,

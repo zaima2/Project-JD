@@ -14,3 +14,13 @@ export async function goodsCreator(data:Goods) {
     }
  
 }
+
+export async function getGoods(page:number,limit:number){
+    return await model.findAndCountAll({
+        order:[
+            ["createdAt","DESC"]
+        ],
+        offset: (page - 1) * limit,
+        limit:limit
+    })
+}
