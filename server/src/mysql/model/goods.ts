@@ -37,7 +37,7 @@ const model = connect.define("goods",{
         get() {
             const value = this.getDataValue("serviceSupport");
             return JSON.parse(value);
-        },
+        }
     },
     brand:{
         type:DataTypes.STRING,
@@ -73,7 +73,7 @@ const model = connect.define("goods",{
         get() {
             const value = this.getDataValue("tags");
             return JSON.parse(value);
-        },
+        }
     },
     keywords:{
         type:DataTypes.STRING,
@@ -81,7 +81,7 @@ const model = connect.define("goods",{
         get() {
             const value = this.getDataValue("keywords");
             return JSON.parse(value);
-        },
+        }
     },
     sold:{
         type:DataTypes.INTEGER,

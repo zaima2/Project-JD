@@ -70,8 +70,13 @@
       </el-table-column>
 
       <el-table-column fixed="right" label="Operations" width="120">
-        <template #default>
-          <el-button type="primary" :icon="Edit" circle />
+        <template #default="scope">
+          <el-button
+            type="primary"
+            @click="goEdit(scope.row)"
+            :icon="Edit"
+            circle
+          />
           <el-button type="danger" :icon="Delete" circle />
         </template>
       </el-table-column>
@@ -110,6 +115,15 @@ function changePage(newPage: number) {
     query: {
       ...route.query,
       page: newPage,
+    },
+  });
+}
+
+function goEdit(row: Goods) {
+  router.push({
+    name: "Edit",
+    params: {
+      id: row.id,
     },
   });
 }

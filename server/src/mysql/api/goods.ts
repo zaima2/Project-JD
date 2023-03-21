@@ -24,3 +24,17 @@ export async function getGoods(page:number,limit:number){
         limit:limit
     })
 }
+
+export async function getGoodsById(id:string) {
+    return await model.findByPk(id);
+}
+
+export async function updateGoods(id:string,form:Goods) {
+    return await model.update({
+        ...form
+    },{
+        where:{
+            id
+        }
+    })
+}
