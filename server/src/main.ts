@@ -12,6 +12,8 @@ import User from "./routes/user";
 import Category from './routes/category';
 import Goods from "./routes/goods";
 
+import Uploads from "./routes/upload";
+
 import sessionScure from "../configure/session";
 import "./mysql/init"
 
@@ -71,6 +73,7 @@ app.use("/api/login",Login);
 app.use("/api/user",User);
 app.use('/api/goods/category',Category);
 app.use("/api/goods",Goods);
+app.use("/api/uploads",Uploads);
 // 错误处理
 
 app.use((err:any, req:any, res:any, next:any)=>{

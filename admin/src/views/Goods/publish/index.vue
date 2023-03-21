@@ -39,6 +39,17 @@
           </el-checkbox-group>
         </el-form-item>
 
+        <div class="uploads">
+          <el-form-item label="封面上传">
+            <Uploads
+              :limit="3"
+              sigle="goods"
+              @upload="uploadHandle"
+              :accepts="state.accepts"
+            />
+          </el-form-item>
+        </div>
+
         <div class="tag_keyword">
           <h3>标签和关键词</h3>
           <div class="tip">
@@ -132,6 +143,7 @@ import { Goods } from "../../../types/Goods";
 import { ErrorResponse } from "../../../types/Error";
 import Failed from "./Failed.vue";
 import Tag from "../../../components/Tag.vue";
+import Uploads from "../../../components/Uploads/Uploads.vue";
 const state = reactive({
   form: {
     name: "",
@@ -157,6 +169,7 @@ const state = reactive({
   success: false,
   failed: false,
   error: {} as ErrorResponse,
+  accepts: ["jpeg", "png", "gif"],
 });
 
 function nextStep() {
@@ -178,6 +191,10 @@ async function submit() {
     state.current = 3;
     state.error = resp;
   }
+}
+
+function uploadHandle(fileList: string[]) {
+  console.log(fileList);
 }
 
 function updateKeywords(keywords: string[]) {

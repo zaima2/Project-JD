@@ -20,7 +20,9 @@ import upload from "../utils/uploads";
         // res.send(formatResponse(0,"上传成功",{user,token:'Bearer ' + authData.token}));
     });
 
-    router.post("/goods/:uid",)
+    router.post("/goods", await (await upload(path.resolve(__dirname,"../../../uploads/goods"))).single("goods"), async (req:any,res,next) => {
+        res.send(formatResponse(0,"上传成功",`/imgs/goods/${req.file?.filename}`));
+    })
 })()
 
 
