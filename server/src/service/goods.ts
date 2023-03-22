@@ -1,4 +1,4 @@
-import { getGoods, getGoodsById, goodsCreator, updateGoods } from "../mysql/api/goods";
+import { fetchGoodsByKeyWord, getGoods, getGoodsById, goodsCreator, updateGoods } from "../mysql/api/goods";
 import { Goods } from "../types/Goods";
 import admin from "../mysql/model/admin";
 import userModel from "../mysql/model/user";
@@ -48,4 +48,8 @@ export async function goodsUpdate(id:string,form:Goods) {
     form.thumbs = JSON.stringify(form.thumbs);
     form.desc = JSON.stringify(form.desc);
    return await updateGoods(id,form);
+}
+
+export async function searchGoods(keywords:string,page:number,limit:number) {
+   return await fetchGoodsByKeyWord(keywords,page,limit);
 }

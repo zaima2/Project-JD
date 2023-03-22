@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { Goods } from "../../types/Goods";
 import model from "../model/goods";
 
@@ -36,5 +37,21 @@ export async function updateGoods(id:string,form:Goods) {
         where:{
             id
         }
+    })
+}
+
+export async function fetchGoodsByKeyWord(keyword:string,page:number,limit:number) {
+   return await model.findAndCountAll({
+        where:{
+            [Op.or]:[
+                {
+                    name: {
+                        [Op.like]: `%${keyword}%`
+                    }
+                }
+            ]
+        },
+        offset:(page - 1) * limit,
+        limit
     })
 }
