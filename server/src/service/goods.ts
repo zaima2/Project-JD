@@ -9,6 +9,7 @@ export async function createGoods(goods:Goods) {
     goods.tags = JSON.stringify(goods.tags);
     goods.keywords = JSON.stringify(goods.keywords);
     goods.thumbs = JSON.stringify(goods.thumbs);
+    goods.desc = JSON.stringify(goods.desc);
     return await goodsCreator(goods);
 }
 
@@ -45,5 +46,6 @@ export async function goodsUpdate(id:string,form:Goods) {
     form.tags = JSON.stringify(form.tags);
     form.keywords = JSON.stringify(form.keywords);
     form.thumbs = JSON.stringify(form.thumbs);
+    form.desc = JSON.stringify(form.desc);
    return await updateGoods(id,form);
 }

@@ -22,6 +22,10 @@ import upload from "../utils/uploads";
 
     router.post("/goods", await (await upload(path.resolve(__dirname,"../../../uploads/goods"))).single("goods"), async (req:any,res,next) => {
         res.send(formatResponse(0,"上传成功",`/imgs/goods/${req.file?.filename}`));
+    });
+
+    router.post("/production", await (await upload(path.resolve(__dirname,"../../../uploads/production"))).single("production"), async (req:any,res,next) => {
+        res.send(formatResponse(0,"上传成功",`/imgs/production/${req.file?.filename}`));
     })
 })()
 

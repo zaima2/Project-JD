@@ -20,5 +20,6 @@ export interface Goods {
     publisher:{
         username:string,
         role:string
-    }
+    },
+    desc:string[] | string
 }

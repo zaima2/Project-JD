@@ -38,6 +38,10 @@
           <el-form-item label="封面上传">
             <Uploads :limit="3" sigle="goods" @upload="uploadHandle" :data="state.form.thumbs" :accepts="state.accepts" />
           </el-form-item>
+          <el-form-item label="商品描述图片">
+            <Uploads :limit="8" sigle="production" @upload="uploadProduction" :data="state.form.desc"
+              :accepts="state.accepts" />
+          </el-form-item>
         </div>
 
         <div class="tag_keyword">
@@ -137,7 +141,8 @@ const state = reactive({
     specification: "",
     keywords: [] as string[],
     tags: [] as string[],
-    thumbs: [] as string[]
+    thumbs: [] as string[],
+    desc: [] as string[]
   } as Goods,
   steps: ["填写商品基本资料", "完善产品信息", "订单创建完毕"],
   current: 1,
@@ -174,6 +179,11 @@ async function submit() {
     state.current = 3;
     state.error = resp;
   }
+}
+
+function uploadProduction(fileList: string[]) {
+  state.form.desc = fileList;
+
 }
 
 function uploadHandle(fileList: string[]) {
