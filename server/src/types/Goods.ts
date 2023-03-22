@@ -14,5 +14,6 @@ export interface Goods {
     region: string,
     specification: string,
     tags:string[] | string,
-    keywords:string[] | string
+    keywords:string[] | string,
+    thumbs:string[] | string
 }

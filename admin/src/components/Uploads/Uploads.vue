@@ -1,20 +1,9 @@
 <template>
   <div class="uploads-container">
-    <el-upload
-      v-model:file-list="state.fileList"
-      class="upload"
-      :action="`/api/uploads/${props.sigle}`"
-      :name="props.sigle"
-      @success="successHandle"
-      multiple
-      :on-preview="handlePreview"
-      :show-file-list="false"
-      :on-remove="handleRemove"
-      :before-upload="beforeUpload"
-      :accept="props.accepts?.join(',')"
-      :limit="props.limit"
-      :on-exceed="handleExceed"
-    >
+    <el-upload v-model:file-list="state.fileList" class="upload" :action="`/api/uploads/${props.sigle}`"
+      :name="props.sigle" @success="successHandle" multiple :on-preview="handlePreview" :show-file-list="false"
+      :on-remove="handleRemove" :before-upload="beforeUpload" :accept="props.accepts?.join(',')" :limit="props.limit"
+      :on-exceed="handleExceed">
       <el-button type="primary">上传</el-button>
       <template #tip>
         <div class="el-upload__tip">
@@ -28,7 +17,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { reactive, watchEffect } from "vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import type { UploadProps, UploadUserFile } from "element-plus";
 import Preview from "./Preview.vue";
@@ -38,6 +27,7 @@ interface PropsType {
   limit: number;
   accepts?: string[];
   preview?: boolean;
+  data?: string[]
 }
 
 const props = withDefaults(defineProps<PropsType>(), {
@@ -48,6 +38,14 @@ const state = reactive({
   fileList: [],
   uploads: [] as string[],
 });
+
+
+watchEffect(() => {
+  if (props.data) {
+    state.uploads = props.data;
+  }
+})
+
 
 const emits = defineEmits(["upload"]);
 
@@ -66,8 +64,7 @@ const handlePreview: UploadProps["onPreview"] = (uploadFile) => {
 
 const handleExceed: UploadProps["onExceed"] = (files, uploadFiles) => {
   ElMessage.warning(
-    `The limit is 3, you selected ${files.length} files this time, add up to ${
-      files.length + uploadFiles.length
+    `The limit is 3, you selected ${files.length} files this time, add up to ${files.length + uploadFiles.length
     } totally`
   );
 };

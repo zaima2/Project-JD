@@ -16,4 +16,5 @@ export interface Goods {
     specification: string,
     keywords: string[],
     tags: string[],
+    thumbs:string[]
 }
