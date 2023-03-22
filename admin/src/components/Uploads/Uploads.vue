@@ -7,7 +7,7 @@
       <el-button type="primary">上传</el-button>
       <template #tip>
         <div class="el-upload__tip">
-          封面限制在3个以内，支持类型：{{ props.accepts?.join("、") }}
+          文件限制在 {{ props.limit }} 个以内，支持类型：{{ props.accepts?.join("、") }}
         </div>
       </template>
     </el-upload>
