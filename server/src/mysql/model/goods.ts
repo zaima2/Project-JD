@@ -93,6 +93,9 @@ const model = connect.define("goods",{
               const value = this.getDataValue("thumbs");
             return JSON.parse(value);
         },
+    },
+    owner:{
+        type:DataTypes.UUID
     }
 },{
     timestamps:true,

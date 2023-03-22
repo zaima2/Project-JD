@@ -15,5 +15,10 @@ export interface Goods {
     specification: string,
     tags:string[] | string,
     keywords:string[] | string,
-    thumbs:string[] | string
+    thumbs:string[] | string,
+    owner:string,
+    publisher:{
+        username:string,
+        role:string
+    }
 }

@@ -1,5 +1,8 @@
 import { getGoods, getGoodsById, goodsCreator, updateGoods } from "../mysql/api/goods";
 import { Goods } from "../types/Goods";
+import admin from "../mysql/model/admin";
+import userModel from "../mysql/model/user";
+import { ResponseWithCount } from "../types/Response";
 
 export async function createGoods(goods:Goods) {
     goods.serviceSupport = JSON.stringify(goods.serviceSupport);
@@ -10,7 +13,27 @@ export async function createGoods(goods:Goods) {
 }
 
 export async function fetchAllGoods(page:number,limit:number) {
-   return await getGoods(page,limit);
+   let resp =  await getGoods(page,limit) as unknown as ResponseWithCount<Goods>;
+    resp = JSON.parse(JSON.stringify(resp));
+    for(let i = 0; i < resp.rows.length; i ++) {
+        const userid = resp.rows[i].owner;
+        const user = await admin.findByPk(userid) as any;
+        if(user) {
+            resp.rows[i].publisher = {
+                username:user.username,
+                role:"admin"
+            }
+        } else {
+            const userInfo = await userModel.findByPk(userid) as any;
+            resp.rows[i].publisher = {
+                username:userInfo.username,
+                role:"user"
+            }
+        }
+        
+    }
+    
+   return resp;
 }
 
 export async function fetchGoodsById(id:string) {
