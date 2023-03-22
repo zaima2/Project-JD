@@ -27,6 +27,7 @@
 
     .main {
         width: calc(100% - 200px);
+        overflow-y: scroll;
     }
 
     .left,

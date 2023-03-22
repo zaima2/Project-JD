@@ -5,12 +5,7 @@
       <Steps :steps="state.steps" :current="state.current" />
     </div>
     <div class="form">
-      <el-form
-        :model="state.form"
-        @onsumit.prevent
-        label-width="120px"
-        v-if="+state.current === 1"
-      >
+      <el-form :model="state.form" @onsumit.prevent label-width="120px" v-if="+state.current === 1">
         <el-form-item label="商品名称">
           <el-input v-model="state.form.name" />
         </el-form-item>
@@ -41,12 +36,11 @@
 
         <div class="uploads">
           <el-form-item label="封面上传">
-            <Uploads
-              :limit="3"
-              sigle="goods"
-              @upload="uploadHandle"
-              :accepts="state.accepts"
-            />
+            <Uploads :limit="3" sigle="goods" @upload="uploadHandle" :accepts="state.accepts" />
+          </el-form-item>
+
+          <el-form-item label="商品描述图片">
+            <Uploads :limit="8" sigle="production" @upload="uploadProduction" :accepts="state.accepts" />
           </el-form-item>
         </div>
 
@@ -70,12 +64,7 @@
         </el-form-item>
       </el-form>
 
-      <el-form
-        :model="state.form"
-        @onsumit.prevent
-        label-width="120px"
-        v-if="+state.current === 2"
-      >
+      <el-form :model="state.form" @onsumit.prevent label-width="120px" v-if="+state.current === 2">
         <el-form-item label="品牌">
           <el-input v-model="state.form.brand" />
         </el-form-item>
@@ -90,10 +79,7 @@
           <el-input v-model="state.form.ingradient" />
         </el-form-item>
         <el-form-item label="适用人群">
-          <el-select
-            v-model="state.form.approperate"
-            placeholder="please select your zone"
-          >
+          <el-select v-model="state.form.approperate" placeholder="please select your zone">
             <el-option label="通用" value="normal" />
             <el-option label="婴儿" value="baby" />
             <el-option label="儿童" value="child" />
@@ -101,19 +87,13 @@
           </el-select>
         </el-form-item>
         <el-form-item label="国产/进口">
-          <el-select
-            v-model="state.form.region"
-            placeholder="please select your zone"
-          >
+          <el-select v-model="state.form.region" placeholder="please select your zone">
             <el-option label="国产" value="internal" />
             <el-option label="进口" value="external" />
           </el-select>
         </el-form-item>
         <el-form-item label="规格">
-          <el-select
-            v-model="state.form.specification"
-            placeholder="please select your zone"
-          >
+          <el-select v-model="state.form.specification" placeholder="please select your zone">
             <el-option label="张" value="zhang" />
             <el-option label="个" value="ge" />
             <el-option label="瓶" value="ping" />
@@ -122,9 +102,7 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" :loading="state.loading" @click="submit"
-            >提交</el-button
-          >
+          <el-button type="primary" :loading="state.loading" @click="submit">提交</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -162,6 +140,8 @@ const state = reactive({
     specification: "",
     keywords: [] as string[],
     tags: [] as string[],
+    thumbs: [] as string[],
+    desc: [] as string[]
   },
   steps: ["填写商品基本资料", "完善产品信息", "订单创建完毕"],
   current: 1,
@@ -193,8 +173,13 @@ async function submit() {
   }
 }
 
+function uploadProduction(fileList: string[]) {
+  state.form.desc = fileList;
+
+}
+
 function uploadHandle(fileList: string[]) {
-  console.log(fileList);
+  state.form.thumbs = fileList;
 }
 
 function updateKeywords(keywords: string[]) {

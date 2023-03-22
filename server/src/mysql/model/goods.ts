@@ -86,6 +86,23 @@ const model = connect.define("goods",{
     sold:{
         type:DataTypes.INTEGER,
         defaultValue:0
+    },
+    thumbs:{
+        type:DataTypes.STRING,
+        get() {
+              const value = this.getDataValue("thumbs");
+            return JSON.parse(value);
+        },
+    },
+    desc:{
+        type:DataTypes.TEXT,
+        get() {
+              const value = this.getDataValue("desc");
+            return JSON.parse(value);
+        },
+    },
+    owner:{
+        type:DataTypes.UUID
     }
 },{
     timestamps:true,

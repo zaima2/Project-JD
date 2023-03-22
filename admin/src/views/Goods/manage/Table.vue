@@ -13,38 +13,23 @@
       <el-table-column prop="sold" label="已售" width="120" />
       <el-table-column prop="store" label="库存" width="120" />
       <el-table-column prop="weight" label="重量(kg)" width="120" />
-      <el-table-column
-        prop="approperate"
-        v-slot="scope"
-        label="适用人群"
-        width="120"
-      >
+      <el-table-column prop="approperate" v-slot="scope" label="适用人群" width="120">
         {{
           scope.row.approperate === "normal"
-            ? "通用"
-            : scope.row.approperate === "baby"
+          ? "通用"
+          : scope.row.approperate === "baby"
             ? "婴儿"
             : scope.row.approperate === "child"
-            ? "儿童"
-            : "成人"
+              ? "儿童"
+              : "成人"
         }}
       </el-table-column>
 
-      <el-table-column
-        prop="back7day"
-        v-slot="scope"
-        label="7天无理由退货"
-        width="120"
-      >
+      <el-table-column prop="back7day" v-slot="scope" label="7天无理由退货" width="120">
         {{ scope.row.back7day ? "是" : "否" }}
       </el-table-column>
 
-      <el-table-column
-        prop="baitiaoPay"
-        v-slot="scope"
-        label="支持白条支付"
-        width="120"
-      >
+      <el-table-column prop="baitiaoPay" v-slot="scope" label="支持白条支付" width="120">
         {{ scope.row.baitiaoPay ? "是" : "否" }}
       </el-table-column>
 
@@ -52,45 +37,34 @@
         {{ scope.row.deliver ? "是" : "否" }}
       </el-table-column>
 
-      <el-table-column
-        prop="specification"
-        v-slot="scope"
-        label="规格"
-        width="120"
-      >
+      <el-table-column prop="specification" v-slot="scope" label="规格" width="120">
         {{
           scope.row.specification === "ge"
-            ? "个"
-            : scope.row.specification === "ping"
+          ? "个"
+          : scope.row.specification === "ping"
             ? "瓶"
             : scope.row.specification === "zhang"
-            ? "张"
-            : "片"
+              ? "张"
+              : "片"
+        }}
+      </el-table-column>
+
+      <el-table-column prop="publisher" v-slot="scope" label="发布者" width="120">
+        {{
+          scope.row.publisher.username
         }}
       </el-table-column>
 
       <el-table-column fixed="right" label="Operations" width="120">
         <template #default="scope">
-          <el-button
-            type="primary"
-            @click="goEdit(scope.row)"
-            :icon="Edit"
-            circle
-          />
+          <el-button type="primary" @click="goEdit(scope.row)" :icon="Edit" circle />
           <el-button type="danger" :icon="Delete" circle />
         </template>
       </el-table-column>
     </el-table>
     <div class="page">
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :total="props.total"
-        :current="+(route.query.page as any)"
-        :page-size="+(route.query.limit as any)"
-        hide-on-single-page
-        @current-change="changePage"
-      />
+      <el-pagination background layout="prev, pager, next" :total="props.total" :current="+(route.query.page as any)"
+        :page-size="+(route.query.limit as any)" hide-on-single-page @current-change="changePage" />
     </div>
   </div>
 </template>
@@ -128,12 +102,13 @@ function goEdit(row: Goods) {
   });
 }
 
-function handleClick() {}
+function handleClick() { }
 </script>
 
 <style scoped lang="less">
 .table-container {
   width: 100%;
+
   .page {
     width: 100%;
     display: flex;

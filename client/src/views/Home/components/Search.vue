@@ -34,7 +34,9 @@ function goSearch() {
   router.push({
     name: "Search",
     query: {
-      keyword: state.keyword
+      keyword: state.keyword,
+      page: 1,
+      limit: 10
     }
   })
 
