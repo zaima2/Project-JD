@@ -1,5 +1,5 @@
 <template>
-  <div class="edit-container">
+  <div class="publish-container">
     <Title title="修改商品" />
     <div class="steps">
       <Steps :steps="state.steps" :current="state.current" />
@@ -109,16 +109,16 @@
 
 <script lang="ts" setup>
 import Title from "../../../components/Title.vue";
-import { reactive } from "vue";
+import { reactive, watchEffect } from "vue";
 import Steps from "../../../components/Prograss/index.vue";
 import Success from "./success.vue";
-import { getGoodsById, updateGoods } from "../../../api/goods";
+import { updateGoods, getGoodsById } from "../../../api/goods";
 import { Goods } from "../../../types/Goods";
 import { ErrorResponse } from "../../../types/Error";
 import Failed from "./Failed.vue";
 import Tag from "../../../components/Tag.vue";
-import { useRoute, useRouter } from "vue-router";
 import Uploads from "../../../components/Uploads/Uploads.vue";
+import { useRoute } from "vue-router";
 const state = reactive({
   form: {
     name: "",
@@ -139,7 +139,7 @@ const state = reactive({
     tags: [] as string[],
     thumbs: [] as string[]
   } as Goods,
-  steps: ["填写商品基本资料", "完善产品信息", "订单修改完毕"],
+  steps: ["填写商品基本资料", "完善产品信息", "订单创建完毕"],
   current: 1,
   loading: false,
   success: false,
@@ -149,34 +149,21 @@ const state = reactive({
 });
 
 const route = useRoute();
-const router = useRouter();
 
-(async function () {
-  if (route.params.id) {
-    state.form = (await getGoodsById(
-      route.params.id as string
-    )) as unknown as Goods;
-  }
-})();
+
+watchEffect(async () => {
+  state.form = await getGoodsById(route.params.id as string) as unknown as Goods;
+})
 
 function nextStep() {
   state.current = 2;
 }
 
-function uploadHandle(fileList: string[]) {
-  state.form.thumbs = fileList;
-}
-
 async function submit() {
   state.loading = true;
-  console.log(state.form);
-
-
   const resp = (await updateGoods(route.params.id as string, state.form)) as unknown as
     | Goods
     | ErrorResponse;
-
-
   if (!resp.code) {
     state.loading = false;
     state.success = true;
@@ -189,6 +176,10 @@ async function submit() {
   }
 }
 
+function uploadHandle(fileList: string[]) {
+  state.form.thumbs = fileList;
+}
+
 function updateKeywords(keywords: string[]) {
   state.form.keywords = keywords;
 }
@@ -199,7 +190,7 @@ function updateTags(tags: string[]) {
 </script>
 
 <style scoped lang="less">
-.edit-container {
+.publish-container {
   width: 100%;
   height: 100%;
   display: flex;

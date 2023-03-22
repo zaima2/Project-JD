@@ -35,7 +35,7 @@ const props = withDefaults(defineProps<PropsType>(), {
 });
 
 const state = reactive({
-  fileList: [],
+  fileList: [] as UploadUserFile[],
   uploads: [] as string[],
 });
 
@@ -43,6 +43,7 @@ const state = reactive({
 watchEffect(() => {
   if (props.data) {
     state.uploads = props.data;
+    state.fileList = props.data.map(item => ({ name: item, url: item }));
   }
 })
 
@@ -64,8 +65,7 @@ const handlePreview: UploadProps["onPreview"] = (uploadFile) => {
 
 const handleExceed: UploadProps["onExceed"] = (files, uploadFiles) => {
   ElMessage.warning(
-    `The limit is 3, you selected ${files.length} files this time, add up to ${files.length + uploadFiles.length
-    } totally`
+    `最多只能上传${props.limit}个文件`
   );
 };
 
