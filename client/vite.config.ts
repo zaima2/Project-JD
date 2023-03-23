@@ -19,6 +19,9 @@ export default defineConfig({
     proxy:{
       "/api": {
         target:"http://localhost:3200"
+      },
+      "/imgs": {
+        target:"http://localhost:3200"
       }
     }
   }

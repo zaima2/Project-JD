@@ -1,7 +1,7 @@
 <template>
   <div class="goods-container">
     <div class="thumb" v-if="props.data.thumbs.length >= 1">
-      <img :src="server.server + props.data.thumbs[0]" alt="" />
+      <img :src="props.data.thumbs[0]" alt="" />
     </div>
     <div class="goods-info">
       <div class="price">￥{{ props.data.price }}</div>
@@ -28,7 +28,7 @@
           <span>关注</span>
         </div>
         <div class="cart hover-base">
-          <Icon :type="StyleType.cartEmpty" :size="30" />
+          <Icon :type="StyleType.cartFiled" :size="30" />
         </div>
       </div>
     </div>
@@ -37,7 +37,6 @@
 
 <script lang="ts" setup>
 import { Goods } from "../types/Goods";
-import server from "../configure";
 import Icon from "./Icon.vue";
 import { StyleType } from "../types/enum";
 interface PropTypes {
@@ -69,6 +68,7 @@ const props = defineProps<PropTypes>();
     width: 100%;
     display: flex;
     flex-direction: column;
+
     .price {
       width: 100%;
       height: 50px;
@@ -129,6 +129,7 @@ const props = defineProps<PropTypes>();
         background-color: @baseColor;
       }
     }
+
     .footer {
       flex: 1;
       width: 100%;

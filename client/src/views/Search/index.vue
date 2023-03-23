@@ -6,7 +6,7 @@
     <div class="content">
       <div class="recommadation">推荐栏</div>
       <div class="main">
-        <div class="item" v-for="item in state.data">
+        <div class="item" @click="goGoodDetail(item)" v-for="item in state.data">
           <GoodComp :data="item" />
         </div>
       </div>
@@ -16,17 +16,27 @@
 
 <script lang="ts" setup>
 import { watchEffect, reactive } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { searchGoods } from "../../api/goods";
 import { ResponseWithCount } from "../../types/response";
 import { Goods } from "../../types/Goods";
 import Banner from "../Home/components/Banner.vue";
 import GoodComp from "../../components/Goods.vue";
 const route = useRoute();
+const router = useRouter();
 const state = reactive({
   total: 0,
   data: [] as Goods[],
 });
+
+function goGoodDetail(Goods: Goods) {
+  router.push({
+    name: "Profile",
+    params: {
+      id: Goods.id,
+    }
+  })
+}
 
 watchEffect(async () => {
   if (route.query.page && route.query.limit) {
@@ -80,6 +90,7 @@ watchEffect(async () => {
         // border: 1px solid #ccc;
         margin: 10px;
         padding: 10px;
+
         &:hover {
           box-shadow: 0px 0px 1px #000;
           cursor: pointer;
